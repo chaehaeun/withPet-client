@@ -22,7 +22,10 @@ module.exports = {
       },
       maxWidth: {
         scr: '31.25rem',
-      }
+      },
+      lineHeight: {
+        12: '3.5rem',
+      },
     },
   },
   plugins: [],
