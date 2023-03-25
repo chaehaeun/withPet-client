@@ -1,10 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
+import { dbService } from 'firebase-config'
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const SubBtn = () => {
+type SubBtnProps = {
+  userUid: string
+  id: number
+}
+
+const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
   const [like, setLike] = useState(false)
+  const [docId, setDocId] = useState<string>('')
+  const currentUserUid = useSelector((state: RootState) => state.auth.userUid)
+  const navigate = useNavigate()
 
   const likeBtnHandler = () => {
     setLike(prev => !prev)
+  }
+
+  const diaryCollectionRef = collection(dbService, 'diaryInfo')
+  useEffect(() => {
+    const getDocId = async () => {
+      try {
+        const quarySnapshot = await getDocs(diaryCollectionRef)
+        quarySnapshot.forEach((doc): any => {
+          if (doc.data().id === id) {
+            setDocId(doc.id)
+          }
+        })
+        console.log(docId)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    getDocId()
+  }, [])
+
+  const delDoc = async () => {
+    const docRef = doc(dbService, 'diaryInfo', docId)
+    await deleteDoc(docRef)
+    navigate('/story')
   }
 
   return (
@@ -42,11 +80,19 @@ const SubBtn = () => {
           공유
         </button>
       </div>
-      <div className={'py-1 flex gap-3'}>
-        <button className={'p-1'} type={'button'}>
+      <div
+        className={`py-1 flex gap-3 ${
+          userUid === currentUserUid ? '' : 'hidden'
+        } `}
+      >
+        <button
+          className={'p-1'}
+          type={'button'}
+          onClick={() => navigate(`/diary/:${docId}`)}
+        >
           수정
         </button>
-        <button className={'p-1'} type={'button'}>
+        <button className={'p-1'} type={'button'} onClick={delDoc}>
           삭제
         </button>
       </div>

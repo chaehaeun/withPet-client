@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { dbService } from 'firebase-config'
-import { getDoc, doc, collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 
 type StoryWriterProps = {
   DiaryWeather: 'sunny' | 'rainy' | 'cloudy' | 'stormy' | 'snowy'
   userUid: string
   createTime: number
   pet: string
+  date: string
 }
 
 interface Weathers {
@@ -42,23 +43,20 @@ const MONTH = [
 
 const StoryWriter: React.FC<StoryWriterProps> = ({
   DiaryWeather = 'sunny',
-  createTime,
   userUid,
   pet,
+  date,
 }) => {
-  const getDate = new Date(createTime)
-
-  const dateList = {
-    year: getDate.getFullYear(),
-    month: MONTH[getDate.getMonth()],
-    day: getDate.getDate().toString(),
-  }
-
-  const [userName, setUserName] = useState('')
   const [userImg, setUserImg] = useState('')
+  const [diaryDate, setDiaryDate] = useState({
+    year: '2023',
+    month: '01',
+    day: '01',
+  })
 
   const petInfoRef = collection(dbService, 'petInfo')
   useEffect(() => {
+    // 펫프로필 뽑아내는 로직
     const getUser = async () => {
       try {
         const petSnap = await getDocs(petInfoRef)
@@ -67,12 +65,19 @@ const StoryWriter: React.FC<StoryWriterProps> = ({
           item => item.user === userUid && item.petName === pet,
         )
         setUserImg(petResult[0].petImg)
-        setUserName(petResult[0].petName)
       } catch (error) {
         console.error(`사용자 정보를 가져올 수 없습니다. ${error}`)
       }
     }
 
+    //작성일 기준으로 날짜 구하는 로직
+    const makeDate = (date: string) => {
+      const dateArr = date.split('-')
+      const month = parseInt(dateArr[1]) - 1
+      setDiaryDate({ year: dateArr[0], month: MONTH[month], day: dateArr[2] })
+    }
+
+    makeDate(date)
     getUser()
   }, [])
 
@@ -81,20 +86,20 @@ const StoryWriter: React.FC<StoryWriterProps> = ({
       <div className={'flex items-center mt-2 text-sm'}>
         <div
           className={
-            'w-14 h-14 mr-3 rounded-full bg-sprites_icon bg-[left_-58px_top_-190px] bg-slate-700 overflow-hidden'
+            'w-14 h-14 mr-3 rounded-full bg-sprites_icon bg-[left_0px_top_-429px] bg-slate-700 overflow-hidden'
           }
         >
           <img
             className={'object-cover h-full w-full'}
             src={userImg}
-            alt={`${userName} 프로필`}
+            alt={`${pet} 프로필`}
           />
         </div>
         <div className={'flex flex-col'}>
-          <span className={'font-bold'}>{userName}</span>
+          <span className={'font-bold'}>{pet}</span>
           <span
             className={'font-normal'}
-          >{`${dateList.month} ${dateList.day} ${dateList.year}`}</span>
+          >{`${diaryDate.month} ${diaryDate.day}, ${diaryDate.year}`}</span>
         </div>
       </div>
       <div

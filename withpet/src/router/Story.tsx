@@ -71,9 +71,12 @@ const Story = () => {
         {diaryData.map(data => (
           <StoryCard key={data.id} data={data} />
         ))}
+        {diaryData.length === 0 ? (
+          <div className={'mt-2 ml-1'}>데이터가 없습니다.</div>
+        ) : null}
       </Container>
       <Navigation title={'story'} />
-      {/* <button onClick={() => auth.signOut()}>로그아웃</button> */}
+      <button onClick={() => auth.signOut()}>로그아웃</button>
     </>
   )
 }
