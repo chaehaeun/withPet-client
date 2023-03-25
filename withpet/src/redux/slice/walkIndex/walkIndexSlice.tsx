@@ -7,10 +7,6 @@ export interface WalkState {
     desc: string
     color: string
   }
-  walkLocation: {
-    lat: string
-    lng: string
-  }
   walkLoading: boolean
   walkWeather: {
     temp: number
@@ -40,11 +36,7 @@ const initialState: WalkState = {
     desc: '',
     color: '',
   },
-  walkLocation: {
-    lat: '37.574515',
-    lng: '126.976930',
-  },
-  walkLoading: false,
+  walkLoading: true,
   walkWeather: {
     temp: 0,
     rain: 0,
@@ -77,6 +69,12 @@ const initialState: WalkState = {
     },
   ],
   walkAirIndex: [
+    {
+      id: 0,
+      position: '',
+      desc: '',
+      color: 'bg-primary-100',
+    },
     {
       id: 1,
       position: '0px 0px',
@@ -135,9 +133,6 @@ export const walkSlice = createSlice({
     getWalkGroup: (state, action) => {
       state.walkGroup = action.payload
     },
-    getWalkLocation: (state, action) => {
-      state.walkLocation = action.payload
-    },
     getWalkLoading: (state, action) => {
       state.walkLoading = action.payload
     },
@@ -158,7 +153,6 @@ export const walkSlice = createSlice({
 
 export const {
   getWalkGroup,
-  getWalkLocation,
   getWalkLoading,
   getWalkWeather,
   updateTemp,
