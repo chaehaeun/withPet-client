@@ -1,14 +1,16 @@
 import React from 'react'
 import 'components/App/App.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
 import { useNavigate } from 'react-router-dom'
 import LongButton from 'components/UI/LongButton'
+import { resetPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 
 const PetInfoModifyAndDelete: React.FC = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const userUid = useSelector((state: RootState) => state.auth.userUid)
   const petInfo = useSelector(
     (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
@@ -16,12 +18,14 @@ const PetInfoModifyAndDelete: React.FC = () => {
   const petInfoId = useSelector((state: RootState) => state.petInfo.petInfoId)
 
   const onModifyClick = async () => {
-    await setDoc(doc(dbService, 'petInfo', petInfoId), { ...petInfo, userUid })
+    await setDoc(doc(dbService, 'petInfo', petInfoId), { ...petInfo, user:userUid })
+    dispatch(resetPetInfo())
     navigate('/mypage')
   }
 
   const onDeleteClick = async () => {
     await deleteDoc(doc(dbService, 'petInfo', petInfoId))
+    dispatch(resetPetInfo())
     navigate('/mypage')
   }
 

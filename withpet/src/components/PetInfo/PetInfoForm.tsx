@@ -9,13 +9,11 @@ import PetInfoRadioGroup from 'components/PetInfo/PetInfoRadioGroup'
 import { RootState } from 'redux/store'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  getPetInfo,
-  resetPetInfo,
-} from 'redux/slice/petInfo/petInfoSlice'
+import { getPetInfo, resetPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 import { dbService, storageService } from 'firebase-config'
 import { setDoc, doc, collection } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import PetInfoModifyAndDelete from './PetInfoModifyAndDelete'
 
 const PetInfoForm: React.FC = () => {
   const navigate = useNavigate()
@@ -26,6 +24,7 @@ const PetInfoForm: React.FC = () => {
   const userUid = useSelector((state: RootState) => state.auth.userUid)
   const petInfoRef = doc(collection(dbService, 'petInfo'))
   const imgData = useSelector((state: RootState) => state.petInfo.imgData)
+  const isData = useSelector((state: RootState) => state.petInfo.isData)
   const onChange = async (e: React.FormEvent<HTMLInputElement>) => {
     const {
       currentTarget: { name, value },
@@ -44,18 +43,19 @@ const PetInfoForm: React.FC = () => {
     const response = await uploadString(imgRef, imgData, 'data_url')
     const imgUrl = await getDownloadURL(response.ref)
     Promise.all([response, imgUrl])
-    .then(imgUrl => ({
-      ...petInfo,
-      petImg: imgUrl[1],
-      user: userUid
-    }))
-    .then(petInfoObj=> setDoc(petInfoRef, petInfoObj))
-    .catch(error => {
-      console.error('Error adding document: ', error)
-    }).finally(() => {
-      dispatch(resetPetInfo())
-      navigate('/mypage')
-    })
+      .then(imgUrl => ({
+        ...petInfo,
+        petImg: imgUrl[1],
+        user: userUid,
+      }))
+      .then(petInfoObj => setDoc(petInfoRef, petInfoObj))
+      .catch(error => {
+        console.error('Error adding document: ', error)
+      })
+      .finally(() => {
+        dispatch(resetPetInfo())
+        navigate('/mypage')
+      })
   }
 
   return (
@@ -123,7 +123,11 @@ const PetInfoForm: React.FC = () => {
           아니오
         </PetInfoRadioBtn>
       </PetInfoRadioGroup>
-      <PetInfoRegister id="submit" type="submit" value="등록하기" />
+      {isData ? (
+        <PetInfoModifyAndDelete />
+      ) : (
+        <PetInfoRegister id="submit" type="submit" value="등록하기" />
+      )}
     </form>
   )
 }
