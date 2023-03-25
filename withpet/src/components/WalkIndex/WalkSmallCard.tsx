@@ -1,9 +1,8 @@
 import spritesIcon from 'assets/sprites_icon.png'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import {
-  getWalkLoading,
   getWalkWeather,
   updateTemp,
   updateRain,
@@ -60,11 +59,11 @@ const WalkSmallCard: React.FC<walkProps> = ({ lat, lng }) => {
   }
 
   useEffect(() => {
-    if(lat&&lng){
-      currentWeather(lat,lng)
+    if (lat && lng) {
+      currentWeather(lat, lng)
       currentAirQuality(lat, lng)
     }
-  }, [lat,lng])
+  }, [lat, lng])
 
   return (
     <div className="flex justify-center gap-6 mt-20">

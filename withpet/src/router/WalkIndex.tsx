@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import Header from 'components/Header/Header'
 import Container from 'components/UI/Container'
@@ -48,8 +48,6 @@ const WalkIndex = () => {
     }
     navigator.geolocation.getCurrentPosition(onSuccess, onError)
   }, [])
-
-  console.log(walk)
 
   return (
     <>
