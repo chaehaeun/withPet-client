@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "withpet",
+  "name": "반려동물 다이어리 - withpet",
   "icons": [
     {
       "src": "favicon.ico",
