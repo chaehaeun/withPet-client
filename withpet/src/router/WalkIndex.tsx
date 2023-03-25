@@ -9,16 +9,10 @@ import WalkLocation from 'components/WalkIndex/WalkLocation'
 import WalkAirQuality from 'components/WalkIndex/WalkAirQuality'
 import { PropagateLoader } from 'react-spinners'
 
-
 const WalkIndex = () => {
-
   const walk = useSelector((walkState: RootState) => walkState.walk.walkGroup)
-  const loca = useSelector(
-    (walkState: RootState) => walkState.walk.walkLocation
-  )
-  const loading = useSelector((walkState: RootState) => walkState.walk.walkLoading)
-  const AIR = useSelector(
-    (walkState: RootState) => walkState.walk.walkAirIndex,
+  const loading = useSelector(
+    (walkState: RootState) => walkState.walk.walkLoading,
   )
 
   return (
@@ -32,9 +26,9 @@ const WalkIndex = () => {
           size={15}
           loading={loading}
           cssOverride={{
-            position:'absolute',
-            top:'50%',
-            left:'50%'
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
           }}
         />
         <WalkLocation />
