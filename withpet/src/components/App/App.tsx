@@ -15,6 +15,7 @@ import { auth } from 'firebase-config'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { authAction } from 'redux/slice/user/auth-slice'
+import DiaryEdit from 'router/DiaryEdit'
 
 function App() {
   const dispatch = useDispatch()
@@ -50,6 +51,7 @@ function App() {
         <Route path="/story" element={<Story />} />
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/diary" element={isLoggedIn && <Diary />} />
+        <Route path="/diary/:id" element={<DiaryEdit />} />
         <Route path="/walkindex" element={<WalkIndex />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>

@@ -40,10 +40,7 @@ const Story = () => {
         const data = diarySnap.docs.map((doc): any => doc.data())
         if (story.visibility) {
           const publicData = data.filter(el => el.check === 0)
-          // existData는 현재 createTime이 없는 데이터를 걸러내기 위함일 뿐
-          // 나중에 데이터 정리 다 되면 지워도 됨
-          const existData = publicData.filter(e => e.createTime)
-          const allTimeLine = existData.sort(
+          const allTimeLine = publicData.sort(
             (a, b) => Number(b.createTime) - Number(a.createTime),
           )
           setDiaryData(allTimeLine)
