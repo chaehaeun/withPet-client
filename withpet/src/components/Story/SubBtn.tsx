@@ -88,7 +88,7 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
         <button
           className={'p-1'}
           type={'button'}
-          onClick={() => navigate(`/diary/:${docId}`)}
+          onClick={() => navigate(`/diary/${docId}`)}
         >
           수정
         </button>

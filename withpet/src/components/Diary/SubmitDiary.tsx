@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import logoSprite from 'assets/sprites_icon.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from 'redux/store'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, doc, updateDoc } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
 import { resetDiary } from 'redux/slice/diary/diarySlice'
 import moment from 'moment'
@@ -12,6 +13,7 @@ import { storageService } from 'firebase-config'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 
 const SubmitDiary: React.FC = () => {
+  const { id } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const userUid = useSelector((state: RootState) => state.auth.userUid)
@@ -24,48 +26,70 @@ const SubmitDiary: React.FC = () => {
   const [able, setAble] = useState<boolean>(true)
 
   useEffect(() => {
-    if (
-      diary.pet === '' ||
-      diary.text === '' ||
-      diary.title === '' ||
-      imgGroup[0].id === ''
-    ) {
-      setAble(true)
+    if (id) {
+      if (diary.pet === '' || diary.text === '' || diary.title === '') {
+        setAble(true)
+      } else {
+        setAble(false)
+      }
     } else {
-      setAble(false)
+      if (
+        diary.pet === '' ||
+        diary.text === '' ||
+        diary.title === '' ||
+        imgGroup[0].id === ''
+      ) {
+        setAble(true)
+      } else {
+        setAble(false)
+      }
     }
   }, [diary])
 
   const onSubmit = async () => {
-    const createTime = moment().format('YYYYMMDDHHmmss')
-
-    const imageGroupPromises = imgGroup.map(file => {
-      const imgName = file.id
-      const imagesRef = ref(storageService, `diaryImg/${userUid}/${imgName}`)
-
-      return uploadString(imagesRef, file.origin, 'data_url')
-        .then(response => getDownloadURL(response.ref))
-        .then(imgUrl => ({ id: imgName, url: imgUrl }))
-    })
-
-    Promise.all(imageGroupPromises)
-      .then(imageUrls => ({
-        ...diary,
-        user: userUid,
-        createTime: createTime,
-        id: new Date().getTime(),
-        imagesUrl: imageUrls,
-      }))
-      .then(diaryInfoObj => {
-        addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
+    if (id) {
+      const editRef = doc(dbService, 'diaryInfo', `${id}`)
+      await updateDoc(editRef, {
+        check: diary.check,
+        date: diary.date,
+        pet: diary.pet,
+        text: diary.text,
+        title: diary.title,
+        weather: diary.weather,
       })
-      .catch(error => {
-        console.error('Error adding document:', error)
+      dispatch(resetDiary())
+      navigate('/story')
+    } else {
+      const createTime = moment().format('YYYYMMDDHHmmss')
+
+      const imageGroupPromises = imgGroup.map(file => {
+        const imgName = file.id
+        const imagesRef = ref(storageService, `diaryImg/${userUid}/${imgName}`)
+
+        return uploadString(imagesRef, file.origin, 'data_url')
+          .then(response => getDownloadURL(response.ref))
+          .then(imgUrl => ({ id: imgName, url: imgUrl }))
       })
-      .finally(() => {
-        dispatch(resetDiary())
-        navigate('/story')
-      })
+
+      Promise.all(imageGroupPromises)
+        .then(imageUrls => ({
+          ...diary,
+          user: userUid,
+          createTime: createTime,
+          id: new Date().getTime(),
+          imagesUrl: imageUrls,
+        }))
+        .then(diaryInfoObj => {
+          addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
+        })
+        .catch(error => {
+          console.error('Error adding document:', error)
+        })
+        .finally(() => {
+          dispatch(resetDiary())
+          navigate('/story')
+        })
+    }
   }
 
   return (
