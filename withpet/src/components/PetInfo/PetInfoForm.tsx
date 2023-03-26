@@ -45,6 +45,7 @@ const PetInfoForm: React.FC = () => {
     Promise.all([response, imgUrl])
       .then(imgUrl => ({
         ...petInfo,
+        petImgName: petInfo.petImg,
         petImg: imgUrl[1],
         user: userUid,
       }))

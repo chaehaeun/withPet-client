@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export interface PetInfoState {
   petInfoGroup: {
     petImg: string
+    petImgName: string
     petType: string
     petName: string
     petBirth: string
@@ -17,6 +18,7 @@ export interface PetInfoState {
 const initialState: PetInfoState = {
   petInfoGroup: {
     petImg: '',
+    petImgName: '',
     petType: '',
     petName: '',
     petBirth: '',

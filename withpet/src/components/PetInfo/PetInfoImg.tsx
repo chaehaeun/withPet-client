@@ -12,6 +12,7 @@ const PetInfoImg: React.FC = () => {
   const [image, setImage] = useState<boolean>(false)
   const [fileChange, setFileChange] =  useState<boolean>(false)
   const dispatch = useDispatch()
+
   useEffect(()=>{
     if(petInfoImg !== '' && !fileChange){
       setAttachment(petInfoImg)

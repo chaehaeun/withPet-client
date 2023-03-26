@@ -7,7 +7,7 @@ import { dbService, storageService } from 'firebase-config'
 import { useNavigate } from 'react-router-dom'
 import LongButton from 'components/UI/LongButton'
 import { resetPetInfo } from 'redux/slice/petInfo/petInfoSlice'
-import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { deleteObject, getDownloadURL, ref, uploadString } from 'firebase/storage'
 
 const PetInfoModifyAndDelete: React.FC = () => {
   const navigate = useNavigate()
@@ -27,12 +27,14 @@ const PetInfoModifyAndDelete: React.FC = () => {
       dispatch(resetPetInfo())
       navigate('/mypage')
     } else {
+      await deleteObject(ref(storageService, `petImg/${userUid}/${petInfo.petImgName}`))
       const imgRef = ref(storageService, `petImg/${userUid}/${petInfo.petImg}`)
       const response = await uploadString(imgRef, imgData, 'data_url')
       const imgUrl = await getDownloadURL(response.ref)
       Promise.all([response, imgUrl])
         .then(imgUrl => ({
           ...petInfo,
+          petImgName: petInfo.petImg,
           petImg: imgUrl[1],
           user: userUid,
         }))
@@ -51,6 +53,7 @@ const PetInfoModifyAndDelete: React.FC = () => {
 
   const onDeleteClick = async () => {
     await deleteDoc(doc(dbService, 'petInfo', petInfoId))
+    await deleteObject(ref(storageService, `petImg/${userUid}/${petInfo.petImgName}`))
     dispatch(resetPetInfo())
     navigate('/mypage')
   }
