@@ -8,10 +8,10 @@ export interface PetInfoState {
     petBirth: string
     petGender: string
     petNeuter: string
-  },
-  petInfoId: string,
-  imgData: string,
-  isData: boolean,
+  }
+  petInfoId: string
+  imgData: string
+  isData: boolean
 }
 
 const initialState: PetInfoState = {
@@ -20,8 +20,8 @@ const initialState: PetInfoState = {
     petType: '',
     petName: '',
     petBirth: '',
-    petGender: 'male',
-    petNeuter: 'yes',
+    petGender: '',
+    petNeuter: '',
   },
   petInfoId: '',
   imgData: '',
@@ -38,21 +38,22 @@ const petInfoSlice = createSlice({
     getPetImg: (state, action) => {
       state.petInfoGroup.petImg = action.payload
     },
-    getPetInfoId:(state, action):void => {
+    getPetInfoId: (state, action): void => {
       state.isData = true
       state.petInfoId = action.payload
     },
     getImgData: (state, action) => {
       state.imgData = action.payload
     },
-    resetPetInfo: state =>{
+    resetPetInfo: state => {
       state.petInfoGroup = initialState.petInfoGroup
       state.petInfoId = initialState.petInfoId
-      state.isData =  initialState.isData
-    }
+      state.isData = initialState.isData
+    },
   },
 })
 
-export const { getPetInfo, getPetImg, getPetInfoId, getImgData, resetPetInfo } = petInfoSlice.actions
+export const { getPetInfo, getPetImg, getPetInfoId, getImgData, resetPetInfo } =
+  petInfoSlice.actions
 
 export default petInfoSlice.reducer
