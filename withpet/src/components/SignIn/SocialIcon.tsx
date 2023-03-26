@@ -41,6 +41,3 @@ const SocialIcon: React.FC<IconProps> = ({ method }) => {
 }
 
 export default SocialIcon
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.')
-}
