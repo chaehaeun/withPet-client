@@ -3,6 +3,14 @@ import { dbService } from 'firebase-config'
 import { collection, getDocs } from 'firebase/firestore'
 import { DiaryData } from 'router/Story'
 
+export interface CommentData {
+  comment: string
+  createdAt: number
+  user: string
+  imgUrl: string
+  petName: string
+  DiaryId: number
+}
 export interface StoryState {
   storyGroup: {
     visibility: boolean
@@ -10,33 +18,17 @@ export interface StoryState {
   storyData: DiaryData[] | null
   status: 'idle' | 'loading' | 'succeeded' | 'failed' // 상태 추가
   error: any
+  commentData: CommentData[] | null
 }
 
 const initialState: StoryState = {
   storyGroup: {
     visibility: true,
   },
-  storyData: [
-    // {
-    //   check: 0,
-    //   date: '',
-    //   id: 0,
-    //   imagesUrl: [
-    //     {
-    //       id: '',
-    //       origin: '',
-    //       url: '',
-    //     },
-    //   ],
-    //   pet: '',
-    //   title: '',
-    //   text: '',
-    //   user: '',
-    //   weather: 'sunny',
-    // },
-  ],
+  storyData: [],
   status: 'idle',
   error: null,
+  commentData: [],
 }
 
 const diaryCollectionRef = collection(dbService, 'diaryInfo')
