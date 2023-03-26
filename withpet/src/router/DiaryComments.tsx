@@ -42,7 +42,7 @@ const DiaryComments = () => {
             {currentData ? (
               <>
                 <StoryCard key={currentData.id} data={currentData} />
-                <CommentWrap />
+                <CommentWrap id={currentData.id} />
               </>
             ) : (
               <div>Data not found</div>

@@ -1,8 +1,61 @@
-import React from 'react'
+import { collection, addDoc, getDocs } from 'firebase/firestore'
+import React, { useEffect, useRef, useState } from 'react'
+import { dbService } from 'firebase-config'
+import { RootState } from 'redux/store'
+import { useSelector } from 'react-redux'
 
-const WriteComment = () => {
+type WriteCommentProps = {
+  id: number
+}
+
+const WriteComment: React.FC<WriteCommentProps> = ({ id }) => {
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
+  const [commentValue, setCommentValue] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [userImg, setUserImg] = useState('')
+  const [userName, setUserName] = useState('')
+
+  const inputValHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCommentValue(e.target.value)
+  }
+
+  const petInfoRef = collection(dbService, 'petInfo')
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const petSnap = await getDocs(petInfoRef)
+        const petData = petSnap.docs.map((doc): any => doc.data())
+        const petResult = petData.filter(item => item.user === userUid)
+        setUserImg(petResult[0].petImg)
+        setUserName(petResult[0].petName)
+      } catch (error) {
+        console.error(`사용자 정보를 가져올 수 없습니다. ${error}`)
+      }
+    }
+
+    getUser()
+  }, [])
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const addCommentData = async () => {
+      await addDoc(collection(dbService, 'commentInfo'), {
+        comment: commentValue,
+        createdAt: Date.now(),
+        user: userUid,
+        imgUrl: userImg,
+        petName: userName,
+        DiaryId: id,
+      })
+      setCommentValue('')
+    }
+
+    addCommentData()
+  }
+
   return (
-    <form>
+    <form onSubmit={onSubmitHandler}>
       <fieldset>
         <legend className="sr-only">댓글 작성 폼</legend>
         <div className="relative w-full">
@@ -10,10 +63,14 @@ const WriteComment = () => {
             댓글 입력
           </label>
           <input
+            required
             id="comment"
+            value={commentValue}
+            ref={inputRef}
             type={'text'}
-            className="w-full p-3 "
-            placeholder="닉네임(으)로 댓글 달기"
+            className="w-full p-3 pr-12"
+            placeholder={`${userName}(으)로 댓글 달기`}
+            onChange={inputValHandler}
           />
           <button
             type={'submit'}
