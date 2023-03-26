@@ -1,5 +1,6 @@
 import React from 'react'
 import Comment from 'components/Story/Comment'
+import WriteComment from 'components/Story/WriteComment'
 
 const CommentWrap = () => {
   return (
@@ -7,6 +8,7 @@ const CommentWrap = () => {
       <Comment />
       <Comment />
       <Comment />
+      <WriteComment />
     </div>
   )
 }
