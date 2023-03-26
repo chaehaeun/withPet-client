@@ -117,6 +117,7 @@ const SignUp = () => {
         userNickName: userNickName,
         phoneNumber: phoneNumber,
         createdAt: new Date(),
+        creatorID: auth.currentUser ? auth.currentUser.uid : '',
       })
       setEmail('')
       setPassword('')

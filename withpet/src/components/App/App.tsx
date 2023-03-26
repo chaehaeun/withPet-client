@@ -10,6 +10,7 @@ import MyPage from 'router/MyPage'
 import Story from 'router/Story'
 import WalkIndex from 'router/WalkIndex'
 import Chatting from 'router/Chatting'
+import Setting from 'router/Setting'
 import AlreadySignIn from 'router/AlreadySignIn'
 import { auth } from 'firebase-config'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -54,6 +55,7 @@ function App() {
         <Route path="/diary" element={isLoggedIn && <Diary />} />
         <Route path="/walkindex" element={<WalkIndex />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/setting" element={<Setting />} />
       </Routes>
     </>
   )
