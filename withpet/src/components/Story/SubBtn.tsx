@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { dbService } from 'firebase-config'
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  where,
+  query,
+} from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+import { CommentData } from 'redux/slice/story/storySlice'
 
 type SubBtnProps = {
   userUid: string
@@ -14,31 +22,44 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
   const [like, setLike] = useState(false)
   const [docId, setDocId] = useState<string>('')
   const currentUserUid = useSelector((state: RootState) => state.auth.userUid)
+  const [commentNum, setCommentNum] = useState(0)
   const navigate = useNavigate()
 
   const likeBtnHandler = () => {
     setLike(prev => !prev)
   }
 
-  const diaryCollectionRef = collection(dbService, 'diaryInfo')
-  useEffect(() => {
+  useMemo(() => {
     const getDocId = async () => {
       try {
-        const quarySnapshot = await getDocs(diaryCollectionRef)
-        quarySnapshot.forEach((doc): any => {
-          if (doc.data().id === id) {
-            setDocId(doc.id)
-          }
+        const diaryQuery = query(
+          collection(dbService, 'diaryInfo'),
+          where('id', '==', id),
+        )
+        const querySnapshot = await getDocs(diaryQuery)
+        querySnapshot.forEach(doc => {
+          setDocId(doc.id)
         })
+
+        const commentQuery = query(
+          collection(dbService, 'commentInfo'),
+          where('DiaryId', '==', id),
+        )
+        const commentSnapshot = await getDocs(commentQuery)
+        const commentResult = commentSnapshot.docs.map(doc =>
+          doc.data(),
+        ) as CommentData[]
+
+        setCommentNum(commentResult.length)
       } catch (error) {
         console.log(error)
       }
     }
-
     getDocId()
-  }, [])
+  }, [id])
 
   const delDoc = async () => {
+    if (!docId) return
     const docRef = doc(dbService, 'diaryInfo', docId)
     await deleteDoc(docRef)
     navigate('/story')
@@ -80,7 +101,7 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
         >
           댓글
           <span className={'ml-1'} aria-label="댓글 개수">
-            {3}
+            {commentNum}
           </span>
         </button>
         <button className={'p-1'} type={'button'}>
