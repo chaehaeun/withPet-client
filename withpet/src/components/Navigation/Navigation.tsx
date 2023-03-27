@@ -23,6 +23,7 @@ const NAV_ITEMS = [
   { name: 'diary', x: -82, y: 0 },
   { name: 'walkindex', x: -124, y: -1 },
   { name: 'mypage', x: -164, y: 0 },
+  { name: 'setting', x: -164, y: 0 },
 ]
 
 const Navigation: FC<NavigationProps> = ({ title = '' }) => {
