@@ -8,6 +8,7 @@ module.exports = {
           100: '#FAEFE9',
           200: '#F6615A',
           300: '#FF0101',
+          400: '#B10E07',
         },
         Gray: {
           100: '#FAFAFA',
@@ -41,10 +42,16 @@ module.exports = {
       width: {
         8.9: '2.1875rem',
         18: '4.62125rem',
+        69: '17.0625rem',
         85: '21.4375rem',
       },
       maxWidth: {
         scr: '31.25rem',
+      },
+      height: {
+        8.9: '2.1875rem',
+        13: '3.125rem',
+        39: '9.8125rem',
       },
       boxShadow: {
         100: '5px 5px rgb(0,0,0)',
@@ -54,10 +61,6 @@ module.exports = {
       },
       backgroundImage: {
         sprites_icon: "url('../../assets/sprites_icon.png')",
-      },
-      height: {
-        8.9: '2.1875rem',
-        13: '3.125rem',
       },
       lineHeight: {
         12: '3.5rem',

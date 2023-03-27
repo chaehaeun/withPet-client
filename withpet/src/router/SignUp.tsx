@@ -141,7 +141,7 @@ const SignUp = () => {
   return (
     <Container style={'bg-primary-100 justify-center'}>
       <section className="max-w-scr py-6 flex flex-col gap-2.5 justify-center items-center">
-        <img src={logoSignUp} alt="logo" className="h-40 w-72" />
+        <img src={logoSignUp} alt="logo" className="w-69 h-39" />
         <form
           className="flex flex-col items-center justify-center w-full gap-6 max-w-scr"
           onSubmit={onSubmit}
@@ -212,7 +212,7 @@ const SignUp = () => {
           <input
             type="submit"
             value="회원가입"
-            className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-200 shadow-100 cursor-pointer"
+            className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-400 hover:bg-primary-200 shadow-100 cursor-pointer"
           />
           {errorMsg && (
             <span className="text-xs text-left text-primary-300">
