@@ -1,13 +1,11 @@
-import React, { FC, useMemo, useState, useEffect } from 'react'
+import React, { FC, useMemo, useState, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 import logoSprite from 'assets/sprites_icon.png'
-import navBack from 'assets/navBack.png'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import {
   collection,
   getDocs,
-  DocumentData,
   query,
   where,
 } from 'firebase/firestore'
@@ -27,7 +25,7 @@ const NAV_ITEMS = [
 
 const Navigation: FC<NavigationProps> = ({ title = '' }) => {
   const [activeNav, setActiveNav] = useState(title)
-  const [myPets, setMyPets] = useState<DocumentData[]>([])
+  const [myPetImg, setMyPetImg] = useState<string>('')
 
   const userUid = useSelector((state: RootState) => state.auth.userUid)
 
@@ -48,24 +46,28 @@ const Navigation: FC<NavigationProps> = ({ title = '' }) => {
     [],
   )
 
-  useEffect(() => {
-    const getMyPet = async () => {
-      const q = query(
-        collection(dbService, 'petInfo'),
-        where('user', '==', userUid),
-      )
-      const myPetList = await getDocs(q)
-      setMyPets(myPetList.docs.map(doc => doc.data()))
-    }
-    getMyPet()
-  }, [])
+  const anotherItems = useMemo(() => navItems.filter((e, i) => i <= 3), [])
 
-  const anotherItems = navItems.filter((e, i) => i <= 3)
+  const getMyPet = async () => {
+    const q = query(
+      collection(dbService, 'petInfo'),
+      where('user', '==', userUid),
+    )
+    const myPetList = await getDocs(q)
+    const myFirstPet = myPetList.docs.map(doc => doc.data())
+    setMyPetImg(myFirstPet[0]?.petImg)
+  }
+
+  useLayoutEffect(() => {
+    if (myPetImg === '') {
+      getMyPet()
+    }
+  }, [])
 
   return (
     <nav className="w-full max-w-scr h-16 bg-white mx-auto fixed bottom-0 left-0 right-0  z-50">
       <div className="flex flex-nowrap flex-row justify-between leading-8 px-6 py-4 border-t border-solid border-gray-400">
-        {userUid && myPets
+        {myPetImg!==''
           ? anotherItems.map(({ name, style }) => (
               <Link to={`/${name}`} key={name}>
                 <button
@@ -96,7 +98,7 @@ const Navigation: FC<NavigationProps> = ({ title = '' }) => {
                 />
               </Link>
             ))}
-        {userUid && myPets ? (
+        {myPetImg!=='' && (
           <Link to={'/mypage'} key={'mypage'}>
             <button
               type="button"
@@ -104,14 +106,12 @@ const Navigation: FC<NavigationProps> = ({ title = '' }) => {
               aria-label={'mypage 버튼 선택'}
             >
               <img
-                className="w-8.9 h-8.9 rounded-[50%] border-2 border-black border-solid"
-                src={myPets[0] ? myPets[0].petImg : navBack}
+                className="w-8.9 h-8.9 rounded-[50%] border-2 border-black border-solid object-cover"
+                src={myPetImg}
                 alt="나의 프로필 사진"
               />
             </button>
           </Link>
-        ) : (
-          ''
         )}
       </div>
     </nav>
