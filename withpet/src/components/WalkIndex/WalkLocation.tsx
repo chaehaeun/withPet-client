@@ -44,7 +44,7 @@ const WalkLocation: React.FC<walkProps> = ({ lat, lng }) => {
     <>
       {loading ? (
         <PropagateLoader
-          color="#FAEFE9"
+          color="#F6615A"
           size={15}
           loading={loading}
           cssOverride={{

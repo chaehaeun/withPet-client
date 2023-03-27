@@ -70,12 +70,6 @@ const initialState: WalkState = {
   ],
   walkAirIndex: [
     {
-      id: 0,
-      position: '',
-      desc: '',
-      color: 'bg-primary-100',
-    },
-    {
       id: 1,
       position: '0px 0px',
       desc: '최고',

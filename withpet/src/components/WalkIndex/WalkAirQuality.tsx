@@ -20,24 +20,22 @@ const WalkAirQuality = () => {
   const dispatch = useDispatch()
 
   const AirLevel = (aqi: number) => {
-    if (aqi < 0) {
+    if (0 <= aqi && aqi <= 15) {
       return dispatch(getWalkGroup(AIR[0]))
-    } else if (0 <= aqi && aqi <= 15) {
-      return dispatch(getWalkGroup(AIR[1]))
     } else if (15 < aqi && aqi <= 30) {
-      return dispatch(getWalkGroup(AIR[2]))
+      return dispatch(getWalkGroup(AIR[1]))
     } else if (30 < aqi && aqi <= 40) {
-      return dispatch(getWalkGroup(AIR[3]))
+      return dispatch(getWalkGroup(AIR[2]))
     } else if (40 < aqi && aqi <= 50) {
-      return dispatch(getWalkGroup(AIR[4]))
+      return dispatch(getWalkGroup(AIR[3]))
     } else if (50 < aqi && aqi <= 75) {
-      return dispatch(getWalkGroup(AIR[5]))
+      return dispatch(getWalkGroup(AIR[4]))
     } else if (75 < aqi && aqi <= 100) {
-      return dispatch(getWalkGroup(AIR[6]))
+      return dispatch(getWalkGroup(AIR[5]))
     } else if (100 < aqi && aqi <= 150) {
-      return dispatch(getWalkGroup(AIR[7]))
+      return dispatch(getWalkGroup(AIR[6]))
     } else if (150 < aqi) {
-      return dispatch(getWalkGroup(AIR[8]))
+      return dispatch(getWalkGroup(AIR[7]))
     }
   }
 
@@ -46,7 +44,7 @@ const WalkAirQuality = () => {
     if (aqi > 0) {
       dispatch(getWalkLoading(false))
     }
-  },[aqi])
+  }, [aqi])
 
   return (
     <>
