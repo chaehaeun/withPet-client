@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import 'components/App/App.css'
 import Diary from 'router/Diary'
 import PetInfo from 'router/PetInfo'
@@ -50,14 +50,17 @@ function App() {
           element={isLoggedIn ? <AlreadySignIn /> : <SignUp />}
         />
         <Route path="/petinfo" element={isLoggedIn && <PetInfo />} />
-        <Route path="/story" element={<Story />} />
-        <Route path="/story/:diaryDocId" element={<DiaryComments />} />
-        <Route path="/chatting" element={<Chatting />} />
+        <Route path="/story" element={isLoggedIn && <Story />} />
+        <Route
+          path="/story/:diaryDocId"
+          element={isLoggedIn && <DiaryComments />}
+        />
+        <Route path="/chatting" element={isLoggedIn && <Chatting />} />
         <Route path="/diary" element={isLoggedIn && <Diary />} />
-        <Route path="/diary/:id" element={<DiaryEdit />} />
-        <Route path="/walkindex" element={<WalkIndex />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/setting" element={<Setting />} />
+        <Route path="/diary/:id" element={isLoggedIn && <DiaryEdit />} />
+        <Route path="/walkindex" element={isLoggedIn && <WalkIndex />} />
+        <Route path="/mypage" element={isLoggedIn && <MyPage />} />
+        <Route path="/setting" element={isLoggedIn && <Setting />} />
       </Routes>
     </>
   )
