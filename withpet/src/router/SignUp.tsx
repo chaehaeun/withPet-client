@@ -125,7 +125,7 @@ const SignUp = () => {
       setUserName('')
       setUserNickName('')
       setPhoneNumber('')
-      navigate('/signin')
+      navigate('/petinfo')
     } catch (error: any) {
       switch (error.code) {
         case 'auth/invalid-email':
@@ -164,7 +164,7 @@ const SignUp = () => {
             placeholder="비밀번호"
             required
           />
-          <p className="-mt-6 text-xs text-left text-primary-300">
+          <p className="-mt-3 text-xs text-left text-primary-300">
             {passwordMessage}
           </p>
           <SignUpInput
@@ -176,7 +176,7 @@ const SignUp = () => {
             placeholder="비밀번호확인"
             required
           />
-          <p className="-mt-6 text-xs text-left text-primary-300">
+          <p className="-mt-3 text-xs text-left text-primary-300">
             {passwordConfirmMessage}
           </p>
           <SignUpInput
@@ -206,7 +206,7 @@ const SignUp = () => {
             placeholder="전화번호"
             required
           />
-          <p className="-mt-6 text-xs text-left text-primary-300">
+          <p className="-mt-3 text-xs text-left text-primary-300">
             {phoneMessage}
           </p>
           <input
