@@ -15,9 +15,10 @@ module.exports = {
           300: '#A8A8A8',
           400: '#6A696B',
           500: '#AFA8A4',
-          600: '#626262',
-          700: '#A8A6A6',
+          600: '#4D4D4D',
+          700: '#555353',
           800: '#EEEEEE',
+          900: '#5F5654',
         },
         contentText: '#212121',
         Air: {
@@ -39,6 +40,7 @@ module.exports = {
       },
       width: {
         8.9: '2.1875rem',
+        18: '4.62125rem',
         85: '21.4375rem',
       },
       maxWidth: {
@@ -55,6 +57,7 @@ module.exports = {
       },
       height: {
         8.9: '2.1875rem',
+        13: '3.125rem',
       },
       lineHeight: {
         12: '3.5rem',

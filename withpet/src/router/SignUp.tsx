@@ -212,7 +212,7 @@ const SignUp = () => {
           <input
             type="submit"
             value="회원가입"
-            className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-200 shadow-100"
+            className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-200 shadow-100 cursor-pointer"
           />
           {errorMsg && (
             <span className="text-xs text-left text-primary-300">
