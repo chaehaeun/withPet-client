@@ -44,9 +44,9 @@ const MyPageCalendar: React.FC<CalenderProps> = () => {
       {isData ? (
         <>
           <Calendar onChange={onChange} value={date} />
-          <div className="mt-6 mb-2 bg-Gray-100 w-full">
+          <div className="w-full mt-6 mb-2 bg-Gray-100">
             {myDiary.map(data => (
-              <StoryCard key={data[1]} data={data[0]} />
+              <StoryCard key={data[1]} data={data[0]} onDelete={null} />
             ))}
           </div>
         </>

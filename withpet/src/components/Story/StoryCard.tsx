@@ -8,9 +8,10 @@ import { DiaryData } from 'router/Story'
 type StoryCardProps = {
   data: DiaryData
   key: number
+  onDelete: ((id: number) => void) | null
 }
 
-const StoryCard: React.FC<StoryCardProps> = ({ data }) => {
+const StoryCard: React.FC<StoryCardProps> = ({ data, onDelete }) => {
   return (
     <article key={data.id}>
       <StorySwiperImg imagesData={data.imagesUrl} />
@@ -22,7 +23,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ data }) => {
         pet={data.pet}
       />
       <StoryContent title={data.title} content={data.text} />
-      <SubBtn userUid={data.user} id={data.id} />
+      <SubBtn userUid={data.user} id={data.id} onDelete={onDelete} />
     </article>
   )
 }

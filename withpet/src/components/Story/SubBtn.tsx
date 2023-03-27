@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { dbService } from 'firebase-config'
@@ -16,9 +16,10 @@ import { CommentData } from 'redux/slice/story/storySlice'
 type SubBtnProps = {
   userUid: string
   id: number
+  onDelete: ((id: number) => void) | null
 }
 
-const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
+const SubBtn: React.FC<SubBtnProps> = ({ userUid, id, onDelete }) => {
   const [like, setLike] = useState(false)
   const [docId, setDocId] = useState<string>('')
   const currentUserUid = useSelector((state: RootState) => state.auth.userUid)
@@ -62,6 +63,7 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
     if (!docId) return
     const docRef = doc(dbService, 'diaryInfo', docId)
     await deleteDoc(docRef)
+    if (onDelete !== null) onDelete(id)
     navigate('/story')
   }
 
