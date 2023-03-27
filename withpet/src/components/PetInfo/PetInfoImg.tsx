@@ -44,7 +44,7 @@ const PetInfoImg: React.FC = () => {
 
 
   return (
-    <div role="fileBox" onChange={onFileChange} className="relative">
+    <div onChange={onFileChange} className="relative">
       {image ? (
         <>
           {attachment && (
@@ -64,6 +64,7 @@ const PetInfoImg: React.FC = () => {
       )}
 
       <input
+        aria-label="펫이미지"
         id="petImg"
         name="petImg"
         type="file"
