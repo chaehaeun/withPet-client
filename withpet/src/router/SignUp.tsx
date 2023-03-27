@@ -125,7 +125,7 @@ const SignUp = () => {
       setUserName('')
       setUserNickName('')
       setPhoneNumber('')
-      navigate('/signin')
+      navigate('/petinfo')
     } catch (error: any) {
       switch (error.code) {
         case 'auth/invalid-email':
@@ -141,7 +141,7 @@ const SignUp = () => {
   return (
     <Container style={'bg-primary-100 justify-center'}>
       <section className="max-w-scr py-6 flex flex-col gap-2.5 justify-center items-center">
-        <img src={logoSignUp} alt="logo" className="h-40 w-72" />
+        <img src={logoSignUp} alt="logo" className="w-69 h-39" />
         <form
           className="flex flex-col items-center justify-center w-full gap-6 max-w-scr"
           onSubmit={onSubmit}
@@ -164,7 +164,7 @@ const SignUp = () => {
             placeholder="비밀번호"
             required
           />
-          <p className="-mt-6 text-xs text-left text-primary-300">
+          <p className="-mt-3 text-xs text-left text-primary-300">
             {passwordMessage}
           </p>
           <SignUpInput
@@ -176,7 +176,7 @@ const SignUp = () => {
             placeholder="비밀번호확인"
             required
           />
-          <p className="-mt-6 text-xs text-left text-primary-300">
+          <p className="-mt-3 text-xs text-left text-primary-300">
             {passwordConfirmMessage}
           </p>
           <SignUpInput
@@ -206,13 +206,13 @@ const SignUp = () => {
             placeholder="전화번호"
             required
           />
-          <p className="-mt-6 text-xs text-left text-primary-300">
+          <p className="-mt-3 text-xs text-left text-primary-300">
             {phoneMessage}
           </p>
           <input
             type="submit"
             value="회원가입"
-            className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-200 shadow-100"
+            className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-400 hover:bg-primary-200 shadow-100 cursor-pointer"
           />
           {errorMsg && (
             <span className="text-xs text-left text-primary-300">

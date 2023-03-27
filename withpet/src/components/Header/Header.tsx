@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import logoHeader from 'assets/Logo/headerLogo.webp'
 import logoSprite from 'assets/sprites_icon.png'
 import SubmitDiary from 'components/Diary/SubmitDiary'
+import { useNavigate } from 'react-router-dom'
 
 type HeaderProps = {
   title?: string
@@ -18,15 +19,26 @@ const Header: FC<HeaderProps> = ({ title = '' }) => {
       }}
     />
   )
+  const navigate = useNavigate()
+
+  const onClick = () => {
+    navigate('/setting')
+  }
 
   return (
     <header className="w-full max-w-scr h-14 px-2 absolute left-1/2 -translate-x-1/2 border-b border-black border-solid leading-12 bg-primary-100 flex flex-row justify-between">
-      <img src={logoHeader} alt="logo" />
+      <img src={logoHeader} alt="logo" className="w-18 h-13" />
       <p className="font-bold absolute left-1/2 -translate-x-1/2">{title}</p>
       {title === 'Diary' ? (
         <SubmitDiary />
+      ) : title === 'MyPage' ? (
+        <button type="button" onClick={onClick} aria-label="설정 버튼">
+          {headerContent}
+        </button>
       ) : (
-        <button type="button">{headerContent}</button>
+        <button type="button" aria-label="알림 버튼">
+          {headerContent}
+        </button>
       )}
     </header>
   )

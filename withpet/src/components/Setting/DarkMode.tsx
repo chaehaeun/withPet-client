@@ -12,7 +12,11 @@ const DarkMode = () => {
     <>
       <section className="max-w-scr mt-5 px-6 flex flex-row flex-nowrap justify-between content-center">
         <span className="text-base font-bold">다크 모드</span>
-        <button onClick={toggleNotice}>
+        <button
+          type="button"
+          onClick={toggleNotice}
+          aria-label="다크 모드 버튼"
+        >
           <div
             className="w-11 h-6"
             style={{

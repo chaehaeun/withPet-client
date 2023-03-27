@@ -6,21 +6,17 @@ import { useNavigate } from 'react-router-dom'
 const UnsubscribingBtn = () => {
   const navigate = useNavigate()
 
-  const onUnsubscribing = async () => {
-    try {
-      const user = auth.currentUser
-      await deleteUser(user as any)
-      navigate('/')
-    } catch (error) {
-      console.log(error)
-    }
+  const onUnsubscribing = () => {
+    const user = auth.currentUser
+    deleteUser(user as any)
+    navigate('/')
   }
 
   return (
     <button
       type="button"
       onClick={onUnsubscribing}
-      className="max-w-scr h-14 bg-Gray-500 mt-4 text-base font-bold text-white shadow-150"
+      className="max-w-scr h-14 bg-Gray-900 mt-4 text-base font-bold text-white shadow-150"
     >
       회원 탈퇴
     </button>
