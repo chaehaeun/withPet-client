@@ -13,7 +13,6 @@ type CommentWrapProps = {
 
 const CommentWrap: React.FC<CommentWrapProps> = ({ id }) => {
   const [commentList, setCommentList] = useState<CommentData[]>([])
-  // const commentInfoRef = collection(dbService, 'commentInfo')
   const userUid = useSelector((state: RootState) => state.auth.userUid)
 
   useMemo(() => {
@@ -37,12 +36,16 @@ const CommentWrap: React.FC<CommentWrapProps> = ({ id }) => {
     getComment()
   }, [id])
 
+  const getNewCommentList = (obj: CommentData) => {
+    setCommentList(prev => [...prev, obj])
+  }
+
   return (
     <div className={'border-t py-5 px-1 flex flex-col gap-5'}>
       {commentList.map((data, i) => (
         <Comment key={i} data={data} uid={userUid} />
       ))}
-      <WriteComment id={id} />
+      <WriteComment getNewComment={getNewCommentList} id={id} />
     </div>
   )
 }
