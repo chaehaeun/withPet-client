@@ -45,6 +45,7 @@ const PetInfoForm: React.FC = () => {
     Promise.all([response, imgUrl])
       .then(imgUrl => ({
         ...petInfo,
+        petImgName: petInfo.petImg,
         petImg: imgUrl[1],
         user: userUid,
       }))
@@ -71,6 +72,7 @@ const PetInfoForm: React.FC = () => {
         name="petType"
         type="text"
         list="petList"
+        value={petInfo.petType}
         onChange={onChange}
       >
         type
@@ -83,7 +85,13 @@ const PetInfoForm: React.FC = () => {
         <option value="파충류" />
       </datalist>
 
-      <PetInfoInput id="petName" name="petName" type="text" onChange={onChange}>
+      <PetInfoInput
+        id="petName"
+        name="petName"
+        type="text"
+        onChange={onChange}
+        value={petInfo.petName}
+      >
         이름
       </PetInfoInput>
 
@@ -92,13 +100,14 @@ const PetInfoForm: React.FC = () => {
         name="petBirth"
         type="date"
         onChange={onChange}
+        value={petInfo.petBirth}
       >
         생년월일
       </PetInfoInput>
 
       <PetInfoRadioGroup label="성별">
         <PetInfoRadioBtn
-          defaultChecked
+          required
           name="petGender"
           value="male"
           onChange={onChange}
@@ -112,7 +121,7 @@ const PetInfoForm: React.FC = () => {
 
       <PetInfoRadioGroup label="중성화">
         <PetInfoRadioBtn
-          defaultChecked
+          required
           name="petNeuter"
           value="yes"
           onChange={onChange}
