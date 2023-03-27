@@ -1,12 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import Comment from 'components/Story/Comment'
 import WriteComment from 'components/Story/WriteComment'
 import { dbService } from 'firebase-config'
 import {
   collection,
   deleteDoc,
+  doc,
+  getDoc,
   getDocs,
   query,
+  updateDoc,
   where,
 } from 'firebase/firestore'
 import { CommentData } from 'redux/slice/story/storySlice'
@@ -68,10 +71,46 @@ const CommentWrap: React.FC<CommentWrapProps> = ({ id }) => {
     deleteComment()
   }
 
+  const onEdit = async (createAt: number, newComment: string) => {
+    const q = query(
+      collection(dbService, 'commentInfo'),
+      where('createdAt', '==', createAt),
+    )
+
+    try {
+      const querySnapshot = await getDocs(q)
+      const comment: any = []
+      querySnapshot.forEach(doc => {
+        comment.push({ ...doc.data(), comment: newComment })
+      })
+
+      const commentDocRef = doc(
+        dbService,
+        'commentInfo',
+        querySnapshot.docs[0].id,
+      )
+
+      const commentDocSnapshot = await getDoc(commentDocRef)
+      if (commentDocSnapshot.exists()) {
+        await updateDoc(commentDocRef, {
+          comment: newComment,
+        })
+      }
+    } catch (error) {
+      console.error('댓글을 수정할 수 없습니다.')
+    }
+  }
+
   return (
     <div className={'border-t py-5 px-1 flex flex-col gap-5'}>
       {commentList.map((data, i) => (
-        <Comment key={i} data={data} uid={userUid} onDelete={onDelete} />
+        <Comment
+          key={i}
+          data={data}
+          uid={userUid}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />
       ))}
       <WriteComment getNewComment={getNewCommentList} id={id} />
     </div>
