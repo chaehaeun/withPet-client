@@ -40,8 +40,7 @@ const Story = () => {
         const data = diarySnap.docs.map((doc): any => doc.data())
         if (story.visibility) {
           const publicData = data.filter(el => el.check === 0)
-          const existData = publicData.filter(e => e.createTime)
-          const allTimeLine = existData.sort(
+          const allTimeLine = publicData.sort(
             (a, b) => Number(b.createTime) - Number(a.createTime),
           )
           setDiaryData(allTimeLine)

@@ -17,6 +17,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { authAction } from 'redux/slice/user/auth-slice'
 import DiaryComments from 'router/DiaryComments'
+import DiaryEdit from 'router/DiaryEdit'
 
 function App() {
   const dispatch = useDispatch()
@@ -29,7 +30,6 @@ function App() {
         dispatch(authAction.getUserUid(user.uid))
       } else {
         setIsLoggedIn(false)
-        console.log('로그아웃!')
       }
     })
   }, [])
@@ -54,6 +54,7 @@ function App() {
         <Route path="/story/:diaryDocId" element={<DiaryComments />} />
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/diary" element={isLoggedIn && <Diary />} />
+        <Route path="/diary/:id" element={<DiaryEdit />} />
         <Route path="/walkindex" element={<WalkIndex />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/setting" element={<Setting />} />
