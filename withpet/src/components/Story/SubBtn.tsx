@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { dbService } from 'firebase-config'
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 type SubBtnProps = {
   userUid: string
@@ -30,7 +30,6 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
             setDocId(doc.id)
           }
         })
-        console.log(docId)
       } catch (error) {
         console.log(error)
       }
@@ -55,7 +54,6 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
         >
           <svg
             aria-label="좋아요 버튼"
-            className={'mr-1'}
             width="17"
             height="16"
             viewBox="0 0 17 16"
@@ -71,10 +69,19 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
             />
           </svg>
 
-          <span aria-label="좋아요 개수">{1}</span>
+          <span className={'ml-1'} aria-label="좋아요 개수">
+            {1}
+          </span>
         </button>
-        <button className={'p-1'} type={'button'}>
+        <button
+          className={'p-1'}
+          type={'button'}
+          onClick={() => navigate(`/story/${id}`)}
+        >
           댓글
+          <span className={'ml-1'} aria-label="댓글 개수">
+            {3}
+          </span>
         </button>
         <button className={'p-1'} type={'button'}>
           공유

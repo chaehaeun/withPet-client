@@ -12,7 +12,7 @@ type StoryCardProps = {
 
 const StoryCard: React.FC<StoryCardProps> = ({ data }) => {
   return (
-    <article key={data.id} className={'mb-5'}>
+    <article key={data.id}>
       <StorySwiperImg imagesData={data.imagesUrl} />
       <StoryWriter
         DiaryWeather={data.weather}

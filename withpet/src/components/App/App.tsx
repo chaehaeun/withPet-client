@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import 'components/App/App.css'
 import Diary from 'router/Diary'
 import PetInfo from 'router/PetInfo'
@@ -16,6 +16,7 @@ import { auth } from 'firebase-config'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { authAction } from 'redux/slice/user/auth-slice'
+import DiaryComments from 'router/DiaryComments'
 import DiaryEdit from 'router/DiaryEdit'
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         />
         <Route path="/petinfo" element={isLoggedIn && <PetInfo />} />
         <Route path="/story" element={<Story />} />
+        <Route path="/story/:diaryDocId" element={<DiaryComments />} />
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/diary" element={isLoggedIn && <Diary />} />
         <Route path="/diary/:id" element={<DiaryEdit />} />

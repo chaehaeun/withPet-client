@@ -65,9 +65,11 @@ const Story = () => {
       <Header title={'Story'} />
       <Container style={'bg-Gray-100 pb-20 pt-20'}>
         <StoryTap />
-        {diaryData.map(data => (
-          <StoryCard key={data.id} data={data} />
-        ))}
+        <div className={'flex flex-col gap-5'}>
+          {diaryData.map(data => (
+            <StoryCard key={data.id} data={data} />
+          ))}
+        </div>
         {diaryData.length === 0 ? (
           <div className={'mt-2 ml-1'}>데이터가 없습니다.</div>
         ) : null}
