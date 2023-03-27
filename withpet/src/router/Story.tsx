@@ -40,8 +40,6 @@ const Story = () => {
         const data = diarySnap.docs.map((doc): any => doc.data())
         if (story.visibility) {
           const publicData = data.filter(el => el.check === 0)
-          // existData는 현재 createTime이 없는 데이터를 걸러내기 위함일 뿐
-          // 나중에 데이터 정리 다 되면 지워도 됨
           const existData = publicData.filter(e => e.createTime)
           const allTimeLine = existData.sort(
             (a, b) => Number(b.createTime) - Number(a.createTime),
@@ -68,9 +66,11 @@ const Story = () => {
       <Header title={'Story'} />
       <Container style={'bg-Gray-100 pb-20 pt-20'}>
         <StoryTap />
-        {diaryData.map(data => (
-          <StoryCard key={data.id} data={data} />
-        ))}
+        <div className={'flex flex-col gap-5'}>
+          {diaryData.map(data => (
+            <StoryCard key={data.id} data={data} />
+          ))}
+        </div>
         {diaryData.length === 0 ? (
           <div className={'mt-2 ml-1'}>데이터가 없습니다.</div>
         ) : null}
