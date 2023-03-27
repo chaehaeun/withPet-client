@@ -15,8 +15,6 @@ const SocialIcon: React.FC<IconProps> = ({ method }) => {
       try {
         const provider = new GoogleAuthProvider()
         await signInWithPopup(auth, provider)
-        const user = auth.currentUser
-        console.log(user)
         navigate('/mypage')
       } catch (err) {
         console.log(err)
