@@ -4,10 +4,16 @@ import { CommentData } from 'redux/slice/story/storySlice'
 type CommentProps = {
   data: CommentData
   uid: string
+  onDelete: (createAt: number) => void
+  onEdit: (createAt: number, newComment: string) => void
 }
 
-const Comment: React.FC<CommentProps> = ({ data, uid }) => {
+const Comment: React.FC<CommentProps> = ({ data, uid, onDelete, onEdit }) => {
   const [time, setTime] = useState('')
+  const [isEdit, setIsEdit] = useState(false)
+  const [localComment, setLocalComment] = useState(data.comment)
+  const [comment, setComment] = useState(data.comment)
+  const txtRef = React.useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     const displayCreatedAt = () => {
@@ -31,6 +37,25 @@ const Comment: React.FC<CommentProps> = ({ data, uid }) => {
     displayCreatedAt()
   }, [])
 
+  const onDeleteHandler = () => {
+    onDelete(data.createdAt)
+  }
+
+  const toggleIsEdit = () => {
+    setIsEdit(prev => !prev)
+  }
+
+  const handleQuitEdit = () => {
+    setIsEdit(prev => !prev)
+    setLocalComment(comment)
+  }
+
+  const handleEdit = () => {
+    onEdit(data.createdAt, localComment)
+    toggleIsEdit()
+    setComment(localComment)
+  }
+
   return (
     <div className={'flex border-b pb-5 w-full'}>
       <div
@@ -51,11 +76,43 @@ const Comment: React.FC<CommentProps> = ({ data, uid }) => {
             <span className={' text-xs'}>{time}</span>
           </div>
           <div className={`flex gap-2 ${uid === data.user ? '' : 'hidden'}`}>
-            <button type={'button'}>수정</button>
-            <button type={'button'}>삭제</button>
+            {isEdit ? (
+              <>
+                <button onClick={handleEdit} type={'button'}>
+                  완료
+                </button>
+                <button onClick={handleQuitEdit} type={'button'}>
+                  취소
+                </button>
+              </>
+            ) : (
+              <>
+                <button type={'button'} onClick={toggleIsEdit}>
+                  수정
+                </button>
+                <button onClick={onDeleteHandler} type={'button'}>
+                  삭제
+                </button>
+              </>
+            )}
           </div>
         </div>
-        <p>{data.comment}</p>
+
+        {isEdit ? (
+          <>
+            <label className="hidden" htmlFor="commentTxt">
+              댓글 수정
+            </label>
+            <textarea
+              id="commentTxt"
+              value={localComment}
+              ref={txtRef}
+              onChange={e => setLocalComment(e.target.value)}
+            ></textarea>
+          </>
+        ) : (
+          <p>{comment}</p>
+        )}
       </div>
     </div>
   )

@@ -14,7 +14,7 @@ const PetInfoModifyAndDelete: React.FC = () => {
   const dispatch = useDispatch()
   const userUid = useSelector((state: RootState) => state.auth.userUid)
   const petInfo = useSelector(
-    (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
+    (state: RootState) => state.petInfo.petInfoGroup,
   )
   const petInfoId = useSelector((state: RootState) => state.petInfo.petInfoId)
   const imgData = useSelector((state: RootState) => state.petInfo.imgData)

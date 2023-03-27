@@ -41,7 +41,11 @@ const DiaryComments = () => {
           <>
             {currentData ? (
               <>
-                <StoryCard key={currentData.id} data={currentData} />
+                <StoryCard
+                  key={currentData.id}
+                  data={currentData}
+                  onDelete={null}
+                />
                 <CommentWrap id={currentData.id} />
               </>
             ) : (

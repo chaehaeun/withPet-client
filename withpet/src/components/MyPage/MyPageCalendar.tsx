@@ -20,11 +20,11 @@ type CalenderProps = {
 }
 
 const MyPageCalendar: React.FC<CalenderProps> = () => {
-  const [date, onChange] = useState(new Date())
+  const [date, onChange] = useState<Date | null>(new Date())
   const chooseDate = moment(date).format('YYYY-MM-DD')
   const [myDiary, setMyDiary] = useState<DocumentData[]>([])
   const userUid = useSelector((state: RootState) => state.auth.userUid)
-  const [isData, setData] = useState(false)
+  const [isData, setData] = useState<boolean>(false)
   useEffect(() => {
     const getMyDiary = async () => {
       const diary = query(
@@ -44,9 +44,9 @@ const MyPageCalendar: React.FC<CalenderProps> = () => {
       {isData ? (
         <>
           <Calendar onChange={onChange} value={date} />
-          <div className="mt-6 mb-2 bg-Gray-100 w-full">
+          <div className="mt-6 mb-12 bg-Gray-100 w-full">
             {myDiary.map(data => (
-              <StoryCard key={data[1]} data={data[0]} />
+              <StoryCard key={data[1]} data={data[0]} onDelete={null} />
             ))}
           </div>
         </>

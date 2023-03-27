@@ -13,7 +13,7 @@ const PetInfoInput:React.FC<InputProps> = (props: InputProps) => {
   const { id, name, type, children, ...rest } = props
 
   return (
-    <div role="inputBox" className="relative py-2 w-11/12 ">
+    <div className="relative py-2 w-11/12 ">
       <label
         htmlFor={id}
         className="inline-box absolute top-7 left-6 text-xs decoration-Gray-400 font-semibold"

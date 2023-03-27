@@ -61,6 +61,10 @@ const Story = () => {
     getData()
   }, [story.visibility])
 
+  const onDelete = (id: number) => {
+    setDiaryData(prev => prev.filter(data => data.id !== id))
+  }
+
   return (
     <>
       <Header title={'Story'} />
@@ -68,7 +72,7 @@ const Story = () => {
         <StoryTap />
         <div className={'flex flex-col gap-5'}>
           {diaryData.map(data => (
-            <StoryCard key={data.id} data={data} />
+            <StoryCard key={data.id} data={data} onDelete={onDelete} />
           ))}
         </div>
         {diaryData.length === 0 ? (

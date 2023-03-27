@@ -3,12 +3,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { dbService } from 'firebase-config'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
+import { CommentData } from 'redux/slice/story/storySlice'
 
 type WriteCommentProps = {
   id: number
+  getNewComment: (obj: CommentData) => void
 }
 
-const WriteComment: React.FC<WriteCommentProps> = ({ id }) => {
+const WriteComment: React.FC<WriteCommentProps> = ({ id, getNewComment }) => {
   const userUid = useSelector((state: RootState) => state.auth.userUid)
   const [commentValue, setCommentValue] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
@@ -40,17 +42,19 @@ const WriteComment: React.FC<WriteCommentProps> = ({ id }) => {
     e.preventDefault()
 
     const addCommentData = async () => {
-      await addDoc(collection(dbService, 'commentInfo'), {
+      const commentData = {
         comment: commentValue,
         createdAt: Date.now(),
         user: userUid,
         imgUrl: userImg,
         petName: userName,
         DiaryId: id,
-      })
-      setCommentValue('')
-    }
+      }
 
+      await addDoc(collection(dbService, 'commentInfo'), commentData)
+      setCommentValue('')
+      getNewComment(commentData)
+    }
     addCommentData()
   }
 
