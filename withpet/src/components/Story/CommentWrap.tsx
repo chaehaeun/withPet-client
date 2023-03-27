@@ -2,7 +2,13 @@ import React, { useEffect, useMemo, useState } from 'react'
 import Comment from 'components/Story/Comment'
 import WriteComment from 'components/Story/WriteComment'
 import { dbService } from 'firebase-config'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import {
+  collection,
+  deleteDoc,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore'
 import { CommentData } from 'redux/slice/story/storySlice'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -40,10 +46,32 @@ const CommentWrap: React.FC<CommentWrapProps> = ({ id }) => {
     setCommentList(prev => [...prev, obj])
   }
 
+  const onDelete = (createAt: number) => {
+    setCommentList(prev => prev.filter(data => data.createdAt !== createAt))
+
+    const q = query(
+      collection(dbService, 'commentInfo'),
+      where('createdAt', '==', createAt),
+    )
+
+    const deleteComment = async () => {
+      try {
+        const querySnapshot = await getDocs(q)
+        querySnapshot.forEach(async doc => {
+          await deleteDoc(doc.ref)
+        })
+      } catch (error) {
+        console.error('댓글을 삭제할 수 없습니다.')
+      }
+    }
+
+    deleteComment()
+  }
+
   return (
     <div className={'border-t py-5 px-1 flex flex-col gap-5'}>
       {commentList.map((data, i) => (
-        <Comment key={i} data={data} uid={userUid} />
+        <Comment key={i} data={data} uid={userUid} onDelete={onDelete} />
       ))}
       <WriteComment getNewComment={getNewCommentList} id={id} />
     </div>

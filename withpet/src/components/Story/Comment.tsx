@@ -4,10 +4,12 @@ import { CommentData } from 'redux/slice/story/storySlice'
 type CommentProps = {
   data: CommentData
   uid: string
+  onDelete: (createAt: number) => void
 }
 
-const Comment: React.FC<CommentProps> = ({ data, uid }) => {
+const Comment: React.FC<CommentProps> = ({ data, uid, onDelete }) => {
   const [time, setTime] = useState('')
+  const [isEdit, setIsEdit] = useState(false)
 
   useEffect(() => {
     const displayCreatedAt = () => {
@@ -31,6 +33,10 @@ const Comment: React.FC<CommentProps> = ({ data, uid }) => {
     displayCreatedAt()
   }, [])
 
+  const onDeleteHandler = () => {
+    onDelete(data.createdAt)
+  }
+
   return (
     <div className={'flex border-b pb-5 w-full'}>
       <div
@@ -51,11 +57,23 @@ const Comment: React.FC<CommentProps> = ({ data, uid }) => {
             <span className={' text-xs'}>{time}</span>
           </div>
           <div className={`flex gap-2 ${uid === data.user ? '' : 'hidden'}`}>
-            <button type={'button'}>수정</button>
-            <button type={'button'}>삭제</button>
+            {isEdit ? (
+              <>
+                <button type={'button'}>완료</button>
+                <button type={'button'}>취소</button>
+              </>
+            ) : (
+              <>
+                <button type={'button'}>수정</button>
+                <button onClick={onDeleteHandler} type={'button'}>
+                  삭제
+                </button>
+              </>
+            )}
           </div>
         </div>
-        <p>{data.comment}</p>
+
+        {isEdit ? '' : <p>{data.comment}</p>}
       </div>
     </div>
   )
