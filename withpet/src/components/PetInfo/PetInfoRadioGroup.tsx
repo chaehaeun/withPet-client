@@ -1,7 +1,7 @@
 import React from 'react'
 import 'components/App/App.css'
 
-interface GroupProp {
+type GroupProp = {
   children: React.ReactNode
   label: string
   tabIndex?: number | undefined

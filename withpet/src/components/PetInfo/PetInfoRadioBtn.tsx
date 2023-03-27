@@ -12,19 +12,18 @@ interface ButtonProp extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const PetInfoRadioBtn: React.FC<ButtonProp> = (props: ButtonProp) => {
   const { children, name, value, ...rest } = props
-  const [isCheck, setIsCheck] = useState(false)
+  const [isCheck, setIsCheck] = useState<boolean>(false)
 
   const petInfo = useSelector(
     (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
   )
 
   useEffect(() => {
-    if (petInfo.petGender === value || petInfo.petNeuter === value ) {
+    if (petInfo.petGender === value || petInfo.petNeuter === value) {
       setIsCheck(true)
-    } else{
+    } else {
       setIsCheck(false)
     }
-
   }, [petInfo])
 
   return (
@@ -34,7 +33,7 @@ const PetInfoRadioBtn: React.FC<ButtonProp> = (props: ButtonProp) => {
           <input
             type="radio"
             name={name}
-            value={value}
+            value={value || ''}
             checked
             {...rest}
             className="peer absolute right-1/2 top-1/2 -z-40"
@@ -43,7 +42,7 @@ const PetInfoRadioBtn: React.FC<ButtonProp> = (props: ButtonProp) => {
           <input
             type="radio"
             name={name}
-            value={value}
+            value={value || ''}
             {...rest}
             className="peer absolute right-1/2 top-1/2 -z-40"
           />
