@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
 import spritesIcon from 'assets/sprites_icon.png'
+import { useParams } from 'react-router-dom'
 
 interface Weather {
   id: string
@@ -39,11 +40,18 @@ export const WEATHERS: Weather[] = [
 ]
 
 const WeatherChoose: React.FC = () => {
+  const { id } = useParams()
   const dispatch = useDispatch()
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
   const [selectedWeather, setSelectedWeather] = useState(WEATHERS[0].id)
+
+  useEffect(() => {
+    if (id) {
+      setSelectedWeather(diary.weather)
+    }
+  }, [])
 
   const handleWeatherSelect = (weather: string) => {
     setSelectedWeather(weather)

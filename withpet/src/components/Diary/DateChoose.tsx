@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
+import { useParams } from 'react-router-dom'
 
 const DateChoose: React.FC = () => {
+  const { id } = useParams()
   const dispatch = useDispatch()
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
@@ -15,6 +17,12 @@ const DateChoose: React.FC = () => {
   const date = now.getDate() > 9 ? now.getDate() : `0${now.getDate()}`
   const current = `${year}-${month}-${date}`
   const [selectedDate, setSelectedDate] = useState<string>(current)
+
+  useEffect(() => {
+    if (id) {
+      setSelectedDate(diary.date)
+    }
+  }, [])
 
   const handleDateSelect = (date: string) => {
     setSelectedDate(date)

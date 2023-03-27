@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { dbService } from 'firebase-config'
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
+import { collection, getDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+import { getDiary } from 'redux/slice/diary/diarySlice'
 
 type SubBtnProps = {
   userUid: string
@@ -15,6 +16,7 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
   const [docId, setDocId] = useState<string>('')
   const currentUserUid = useSelector((state: RootState) => state.auth.userUid)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const likeBtnHandler = () => {
     setLike(prev => !prev)
@@ -31,7 +33,7 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
           }
         })
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
 
@@ -43,6 +45,13 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
     await deleteDoc(docRef)
     navigate('/story')
   }
+
+  const editDoc = async() =>{
+    const editInfo = await getDoc((doc(dbService,'diaryInfo',docId)))
+    dispatch(getDiary(editInfo.data()))
+    navigate(`/diary/${docId}`)
+  }
+
 
   return (
     <div className={'border border-x-0 border-b-0 flex justify-between px-1'}>
@@ -95,7 +104,7 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
         <button
           className={'p-1'}
           type={'button'}
-          onClick={() => navigate(`/diary/${docId}`)}
+          onClick={editDoc}
         >
           수정
         </button>
