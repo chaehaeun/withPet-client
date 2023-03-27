@@ -39,8 +39,8 @@ const WalkSmallCard: React.FC<walkProps> = ({ lat, lng }) => {
       dispatch(getWalkWeather({ ...weather, temp, rain }))
       dispatch(updateTemp(temp))
       dispatch(updateRain(rain))
-    } catch (err: any) {
-      console.error(err.message)
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -53,8 +53,8 @@ const WalkSmallCard: React.FC<walkProps> = ({ lat, lng }) => {
       const data = await response.json()
       const airQuality = data.data.aqi
       dispatch(updateAir(airQuality))
-    } catch (err: any) {
-      console.error(err.message)
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -85,6 +85,7 @@ const WalkSmallCard: React.FC<walkProps> = ({ lat, lng }) => {
             key={idx}
           >
             <div
+              aria-hidden
               style={{
                 backgroundImage: `url(${spritesIcon})`,
                 backgroundPosition: `${data.position}`,

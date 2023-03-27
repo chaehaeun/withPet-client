@@ -56,6 +56,7 @@ const WalkLocation: React.FC<walkProps> = ({ lat, lng }) => {
       ) : (
         <div className="flex justify-center items-center mb-20">
           <div
+            aria-hidden
             style={{
               backgroundImage: `url(${spritesIcon})`,
               backgroundPosition: '-79px -402px',
@@ -64,7 +65,13 @@ const WalkLocation: React.FC<walkProps> = ({ lat, lng }) => {
               marginRight: '16px',
             }}
           ></div>
-          <p className="text-white text-xl font-medium">{current}</p>
+          <p
+            className="text-white text-xl font-medium"
+            role="textbox"
+            aria-label="현재 위치"
+          >
+            {current}
+          </p>
         </div>
       )}
     </>

@@ -61,6 +61,7 @@ const WalkAirQuality = () => {
         />
       ) : (
         <div
+          aria-hidden
           style={{
             backgroundImage: `url(${dogFace})`,
             backgroundPosition: walk.position,
