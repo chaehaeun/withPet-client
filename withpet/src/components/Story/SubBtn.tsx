@@ -106,7 +106,7 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id, onDelete }) => {
             {commentNum}
           </span>
         </button>
-        <button className={'p-1'} type={'button'}>
+        <button className={'p-1 cursor-not-allowed'} type={'button'}>
           공유
         </button>
       </div>
