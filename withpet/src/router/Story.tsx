@@ -8,6 +8,7 @@ import Navigation from 'components/Navigation/Navigation'
 import { collection, getDocs } from 'firebase/firestore'
 import StoryTap from 'components/Story/StoryTap'
 import { RootState } from 'redux/store'
+import { DocumentData } from 'firebase/firestore'
 
 export interface DiaryData {
   check: number
@@ -37,7 +38,7 @@ const Story = () => {
     const getData = async () => {
       try {
         const diarySnap = await getDocs(diaryCollectionRef)
-        const data = diarySnap.docs.map((doc): any => doc.data())
+        const data = diarySnap.docs.map((doc: DocumentData) => doc.data())
         if (story.visibility) {
           const publicData = data.filter(el => el.check === 0)
           const allTimeLine = publicData.sort(
@@ -54,7 +55,7 @@ const Story = () => {
           setDiaryData(myTimeLine)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
     getData()
