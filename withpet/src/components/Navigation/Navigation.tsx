@@ -57,7 +57,7 @@ const Navigation: FC<NavigationProps> = ({ title = '' }) => {
   }, [])
 
   return (
-    <nav className="w-full max-w-scr h-16 bg-white mx-auto fixed bottom-0 left-0 right-0  z-50">
+    <nav className="w-full max-w-scr h-16 bg-white mx-auto fixed bottom-0 left-0 right-0 z-50">
       <div className="flex flex-nowrap flex-row justify-between leading-8 px-6 py-4 border-t border-solid border-gray-400">
         {navItems.map(({ name, style }) => (
           <Link to={`/${name}`} key={name}>
