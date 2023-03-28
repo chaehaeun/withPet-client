@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Header from 'components/Header/Header'
+import Container from 'components/UI/Container'
 import Navigation from 'components/Navigation/Navigation'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 import {
@@ -85,11 +86,11 @@ const Chatting = () => {
   return (
     <>
       <Header title={'Chatting'} />
-      <div className="mx-auto max-w-scr min-h-screen bg-gray-100 font-sans pt-16 pb-20">
+      <Container style={'bg-Gray-100 pb-20 pt-20 min-h-screen'}>
         <MainContainer style={{ border: 'none' }}>
           <ChatContainer>
             <MessageList
-              style={{ position: 'relative', height: '730px' }}
+              style={{ position: 'relative', height: 'auto' }}
               className="w-full relative z-50"
               scrollBehavior="smooth"
               typingIndicator={
@@ -103,14 +104,13 @@ const Chatting = () => {
               })}
             </MessageList>
             <MessageInput
-              className="mx-auto max-w-scr w-full fixed bottom-0 left-0 right-0 z-50"
+              className="mx-auto max-w-scr w-full z-50"
               placeholder="Type message here"
               onSend={handleSend}
             />
           </ChatContainer>
         </MainContainer>
-      </div>
-      <ChatContainer></ChatContainer>
+      </Container>
       <Navigation title={'chatting'} />
     </>
   )
