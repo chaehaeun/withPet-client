@@ -80,7 +80,6 @@ const Story = () => {
         ) : null}
       </Container>
       <Navigation title={'story'} />
-      <button onClick={() => auth.signOut()}>로그아웃</button>
     </>
   )
 }
