@@ -66,7 +66,7 @@ const WalkSmallCard: React.FC<walkProps> = ({ lat, lng }) => {
   }, [lat, lng])
 
   return (
-    <div className="flex justify-center gap-6 mt-20">
+    <div className="w-full flex flex-row justify-center gap-6 mt-20">
       {loading ? (
         <PropagateLoader
           color="#FAEFE9"
@@ -81,10 +81,11 @@ const WalkSmallCard: React.FC<walkProps> = ({ lat, lng }) => {
       ) : (
         SMCARD.map((data, idx) => (
           <div
-            className="bg-white w-28 h-32 flex flex-col items-center justify-center rounded-xl p-4"
+            className="bg-white w-[96px] h-[112px] flex flex-col items-center justify-center rounded-xl p-4 text-ellipsis overflow-scroll"
             key={idx}
           >
             <div
+            className="shrink-0"
               aria-hidden
               style={{
                 backgroundImage: `url(${spritesIcon})`,
@@ -94,8 +95,8 @@ const WalkSmallCard: React.FC<walkProps> = ({ lat, lng }) => {
                 marginBottom: '8px',
               }}
             ></div>
-            <h3>{data.title}</h3>
-            <p>
+            <h3 className="grow text-center no">{data.title}</h3>
+            <p className="shrink-0 text-center ">
               {data.count}
               {data.unit}
             </p>
