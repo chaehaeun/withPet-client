@@ -8,6 +8,7 @@ import Header from 'components/Header/Header'
 import Navigation from 'components/Navigation/Navigation'
 import StoryCard from 'components/Story/StoryCard'
 import CommentWrap from 'components/Story/CommentWrap'
+import { DocumentData } from 'firebase/firestore'
 
 const DiaryComments = () => {
   const params = useParams()
@@ -28,7 +29,7 @@ const DiaryComments = () => {
   }, [diaryData])
 
   const currentData = diaryData.find(
-    data => data.id === Number(params.diaryDocId),
+    (data: DocumentData) => data.id === Number(params.diaryDocId),
   )
 
   return (

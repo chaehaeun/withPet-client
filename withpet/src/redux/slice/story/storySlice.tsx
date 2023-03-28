@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { dbService } from 'firebase-config'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, DocumentData, getDocs } from 'firebase/firestore'
 import { DiaryData } from 'router/Story'
 
 export interface CommentData {
@@ -15,7 +15,7 @@ export interface StoryState {
   storyGroup: {
     visibility: boolean
   }
-  storyData: DiaryData[] | null
+  storyData: DiaryData[] | DocumentData | null
   status: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: string | null | undefined
   commentData: CommentData[] | null
@@ -36,7 +36,7 @@ const diaryCollectionRef = collection(dbService, 'diaryInfo')
 export const fetchData = createAsyncThunk('diary/fetchData', async () => {
   try {
     const diarySnap = await getDocs(diaryCollectionRef)
-    const data = diarySnap.docs.map((doc): any => doc.data())
+    const data = diarySnap.docs.map((doc): DocumentData => doc.data())
 
     return data
   } catch (error) {
