@@ -81,7 +81,7 @@ const WalkSmallCard: React.FC<walkProps> = ({ lat, lng }) => {
       ) : (
         SMCARD.map((data, idx) => (
           <div
-            className="bg-white w-[96px] h-[112px] flex flex-col items-center justify-center rounded-xl p-4  overflow-scroll"
+            className="bg-white w-[96px] flex flex-col items-center justify-center rounded-xl p-4 "
             key={idx}
           >
             <div
