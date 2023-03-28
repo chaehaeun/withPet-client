@@ -58,7 +58,7 @@ const WalkIndex = () => {
       <Container
         style={`${
           loading ? 'bg-primary-100' : walk.color
-        } pt-16 flex flex-col items-center justify-center`}
+        } pt-16 pb-20 flex flex-col items-center justify-center`}
       >
         {location.coordinates?.lat !== 0 && (
           <WalkLocation
