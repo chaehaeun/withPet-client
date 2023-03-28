@@ -3,3 +3,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .radio-before {
+    @apply before:content-[''] before:w-6 before:h-6 before:bg-Gray-100 before:inline-block before:absolute before:top-0 before:left-0;
+  }
+  .radio-after {
+    @apply after:content-['✓'] after:w-6 after:h-6 after:text-primary-200 after:absolute after:text-2xl after:top-[-5px] after:left-1;
+  }
+}
