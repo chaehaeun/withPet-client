@@ -35,6 +35,7 @@ const SignUp = () => {
         '숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요.',
       )
       setIsPassword(false)
+      console.error(isPassword)
     } else {
       setPasswordMessage('안전한 비밀번호 입니다.')
       setIsPassword(true)
@@ -46,6 +47,7 @@ const SignUp = () => {
     if (password !== currentPasswordConfirm) {
       setPasswordConfirmMessage('비밀번호가 일치하지 않습니다.')
       setIsPasswordConfirm(false)
+      console.error(isPasswordConfirm)
     } else {
       setPasswordConfirmMessage('비밀번호가 일치합니다.')
       setIsPasswordConfirm(true)
@@ -60,6 +62,7 @@ const SignUp = () => {
     if (!phoneRegExp.test(currentPhone)) {
       setPhoneMessage('올바른 형식이 아닙니다!!!')
       setIsPhone(false)
+      console.error(isPhone)
     } else {
       setPhoneMessage('사용 가능한 번호입니다.')
       setIsPhone(true)
@@ -107,9 +110,13 @@ const SignUp = () => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
+    interface SystemError {
+      code: string
+      message: string
+    }
     try {
-      const data = await createUserWithEmailAndPassword(auth, email, password)
-      const docRef = await addDoc(collection(dbService, 'userInfo'), {
+      await createUserWithEmailAndPassword(auth, email, password)
+      await addDoc(collection(dbService, 'userInfo'), {
         email: email,
         password: password,
         checkPassword: checkPassword,
@@ -126,8 +133,9 @@ const SignUp = () => {
       setUserNickName('')
       setPhoneNumber('')
       navigate('/petinfo')
-    } catch (error: any) {
-      switch (error.code) {
+    } catch (error) {
+      const err = error as SystemError
+      switch (err.code) {
         case 'auth/invalid-email':
           setErrorMsg('잘못된 이메일 주소입니다.')
           break
