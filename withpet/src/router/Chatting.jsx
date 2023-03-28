@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import Header from 'components/Header/Header'
-import Container from 'components/UI/Container'
 import Navigation from 'components/Navigation/Navigation'
 // import ChatGPT from 'components/Chat/ChatGPT'
 // import ChatGpts from 'components/Chat/ChatGpts'
