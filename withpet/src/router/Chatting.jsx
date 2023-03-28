@@ -89,11 +89,11 @@ const Chatting = () => {
   return (
     <>
       <Header title={'Chatting'} />
-      <div className="mx-auto max-w-scr min-h-screen bg-gray-100 relative top-16 font-sans">
+      <div className="mx-auto max-w-scr min-h-screen bg-gray-100 font-sans pt-16 pb-20">
         <MainContainer style={{ border: 'none' }}>
           <ChatContainer>
             <MessageList
-              style={{ position: 'relative', height: '750px' }}
+              style={{ position: 'relative', height: '730px' }}
               className="w-full relative z-50"
               scrollBehavior="smooth"
               typingIndicator={
