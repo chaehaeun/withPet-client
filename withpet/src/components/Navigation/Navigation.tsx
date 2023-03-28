@@ -3,12 +3,7 @@ import { Link } from 'react-router-dom'
 import logoSprite from 'assets/sprites_icon.png'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-} from 'firebase/firestore'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
 
 type NavigationProps = {
@@ -20,8 +15,6 @@ const NAV_ITEMS = [
   { name: 'chatting', x: -41, y: -2 },
   { name: 'diary', x: -82, y: 0 },
   { name: 'walkindex', x: -124, y: -1 },
-  { name: 'mypage', x: -164, y: 0 },
-  { name: 'setting', x: -164, y: 0 },
 ]
 
 const Navigation: FC<NavigationProps> = ({ title = '' }) => {
@@ -47,8 +40,6 @@ const Navigation: FC<NavigationProps> = ({ title = '' }) => {
     [],
   )
 
-  const anotherItems = useMemo(() => navItems.filter((e, i) => i <= 3), [])
-
   const getMyPet = async () => {
     const q = query(
       collection(dbService, 'petInfo'),
@@ -68,38 +59,23 @@ const Navigation: FC<NavigationProps> = ({ title = '' }) => {
   return (
     <nav className="w-full max-w-scr h-16 bg-white mx-auto fixed bottom-0 left-0 right-0 z-50">
       <div className="flex flex-nowrap flex-row justify-between leading-8 px-6 py-4 border-t border-solid border-gray-400">
-        {myPetImg!==''
-          ? anotherItems.map(({ name, style }) => (
-              <Link to={`/${name}`} key={name}>
-                <button
-                  type="button"
-                  className="w-8.9 h-8.9"
-                  style={
-                    activeNav === name
-                      ? { ...style }
-                      : { ...style, backgroundPositionY: '-45px' }
-                  }
-                  onClick={() => handleClick(name)}
-                  aria-label={`${name} 버튼 선택`}
-                />
-              </Link>
-            ))
-          : navItems.map(({ name, style }) => (
-              <Link to={`/${name}`} key={name}>
-                <button
-                  type="button"
-                  className="w-8.9 h-8.9"
-                  style={
-                    activeNav === name
-                      ? { ...style }
-                      : { ...style, backgroundPositionY: '-45px' }
-                  }
-                  onClick={() => handleClick(name)}
-                  aria-label={`${name} 버튼 선택`}
-                />
-              </Link>
-            ))}
-        {myPetImg!=='' && (
+        {navItems.map(({ name, style }) => (
+          <Link to={`/${name}`} key={name}>
+            <button
+              type="button"
+              className="w-8.9 h-8.9"
+              style={
+                activeNav === name
+                  ? { ...style }
+                  : { ...style, backgroundPositionY: '-45px' }
+              }
+              onClick={() => handleClick(name)}
+              aria-label={`${name} 버튼 선택`}
+            />
+          </Link>
+        ))}
+
+        {myPetImg ? (
           <Link to={'/mypage'} key={'mypage'}>
             <button
               type="button"
@@ -112,6 +88,28 @@ const Navigation: FC<NavigationProps> = ({ title = '' }) => {
                 alt="나의 프로필 사진"
               />
             </button>
+          </Link>
+        ) : (
+          <Link to={'/mypage'} key={'mypage'}>
+            <button
+              type="button"
+              className="w-8.9 h-8.9"
+              style={
+                activeNav === 'mypage'
+                  ? {
+                      backgroundImage: `url(${logoSprite})`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: '-164px 0px',
+                    }
+                  : {
+                      backgroundImage: `url(${logoSprite})`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: '-164px -45px',
+                    }
+              }
+              onClick={() => handleClick('mypage')}
+              aria-label={'mypage 버튼 선택'}
+            />
           </Link>
         )}
       </div>
