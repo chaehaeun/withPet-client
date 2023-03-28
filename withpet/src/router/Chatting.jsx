@@ -86,30 +86,26 @@ const Chatting = () => {
   return (
     <>
       <Header title={'Chatting'} />
-      <Container style={'bg-Gray-100 pb-20 pt-20 min-h-screen'}>
-        <MainContainer style={{ border: 'none' }}>
-          <ChatContainer>
-            <MessageList
-              style={{ position: 'relative', height: 'auto' }}
-              className="w-full relative z-50"
-              scrollBehavior="smooth"
-              typingIndicator={
-                isTyping ? (
-                  <TypingIndicator content="ChatGPT is typing" />
-                ) : null
-              }
-            >
-              {messages.map((message: string, i: number) => {
-                return <Message key={i} model={message} />
-              })}
-            </MessageList>
-            <MessageInput
-              className="mx-auto max-w-scr w-full z-50"
-              placeholder="Type message here"
-              onSend={handleSend}
-            />
-          </ChatContainer>
-        </MainContainer>
+      <Container style={'bg-white pb-20 pt-20 min-h-screen'}>
+        <ChatContainer className="grow">
+          <MessageList
+            style={{ position: 'relative', height: 'auto' }}
+            className="w-full relative z-50"
+            scrollBehavior="smooth"
+            typingIndicator={
+              isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null
+            }
+          >
+            {messages.map((message: string, i: number) => {
+              return <Message key={i} model={message} />
+            })}
+          </MessageList>
+        </ChatContainer>
+        <MessageInput
+          className="mx-auto max-w-scr w-full z-50 fixed bottom-0"
+          placeholder="Type message here"
+          onSend={handleSend}
+        />
       </Container>
       <Navigation title={'chatting'} />
     </>
