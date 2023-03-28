@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
-import dogFace from 'assets/sprites_face.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
+import { PropagateLoader } from 'react-spinners'
 import {
   getWalkLoading,
   getWalkGroup,
 } from 'redux/slice/walkIndex/walkIndexSlice'
-import { PropagateLoader } from 'react-spinners'
+import dogFace from 'assets/sprites_face.png'
 
 const WalkAirQuality = () => {
   const walk = useSelector((walkState: RootState) => walkState.walk.walkGroup)

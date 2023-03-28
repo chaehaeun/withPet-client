@@ -1,10 +1,10 @@
 import React from 'react'
 import 'components/App/App.css'
-import { useDispatch, } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { dbService } from 'firebase-config'
 import { doc, getDoc } from 'firebase/firestore'
 import { getPetInfo, getPetInfoId } from 'redux/slice/petInfo/petInfoSlice'
-import { useNavigate } from 'react-router-dom'
 
 type EditProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   value: string

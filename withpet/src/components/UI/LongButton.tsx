@@ -7,15 +7,20 @@ type BtnProps = {
   className?: string
 }
 
-const LongButton: React.FC<BtnProps> = ({ type, value, onClick, className }) => {
+const LongButton: React.FC<BtnProps> = ({
+  type,
+  value,
+  onClick,
+  className,
+}) => {
   return (
     <button
       type={type}
       onClick={onClick}
-      className={
-        `w-11/12 py-4 mt-6 mb-2 font-bold shadow-200 cursor-pointer ${className}`
-      }
-    >{value}</button>
+      className={`w-11/12 py-4 mt-6 mb-2 font-bold shadow-200 cursor-pointer ${className}`}
+    >
+      {value}
+    </button>
   )
 }
 

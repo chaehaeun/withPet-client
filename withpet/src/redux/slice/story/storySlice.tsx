@@ -16,8 +16,8 @@ export interface StoryState {
     visibility: boolean
   }
   storyData: DiaryData[] | null
-  status: 'idle' | 'loading' | 'succeeded' | 'failed' // 상태 추가
-  error: any
+  status: 'idle' | 'loading' | 'succeeded' | 'failed'
+  error: string | null | undefined
   commentData: CommentData[] | null
 }
 
@@ -33,20 +33,17 @@ const initialState: StoryState = {
 
 const diaryCollectionRef = collection(dbService, 'diaryInfo')
 
-export const fetchData = createAsyncThunk(
-  'diary/fetchData',
-  async (_, thunkAPI) => {
-    try {
-      const diarySnap = await getDocs(diaryCollectionRef)
-      const data = diarySnap.docs.map((doc): any => doc.data())
+export const fetchData = createAsyncThunk('diary/fetchData', async () => {
+  try {
+    const diarySnap = await getDocs(diaryCollectionRef)
+    const data = diarySnap.docs.map((doc): any => doc.data())
 
-      return data
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
-  },
-)
+    return data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+})
 
 export const storySlice = createSlice({
   name: 'story',

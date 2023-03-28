@@ -12,10 +12,13 @@ export const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
-    addMessage: (state, action: PayloadAction<{ content: string; isUser: boolean }>) => {
+    addMessage: (
+      state,
+      action: PayloadAction<{ content: string; isUser: boolean }>,
+    ) => {
       state.messages.push(action.payload)
     },
-    clearMessages: (state) => {
+    clearMessages: state => {
       state.messages = []
     },
   },

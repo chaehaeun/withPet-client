@@ -8,8 +8,10 @@ const UnsubscribingBtn = () => {
 
   const onUnsubscribing = () => {
     const user = auth.currentUser
-    deleteUser(user as any)
-    navigate('/')
+    if (user) {
+      deleteUser(user)
+      navigate('/')
+    }
   }
 
   return (

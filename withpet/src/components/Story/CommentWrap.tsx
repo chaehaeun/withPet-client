@@ -1,7 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import Comment from 'components/Story/Comment'
 import WriteComment from 'components/Story/WriteComment'
+
 import { dbService } from 'firebase-config'
+import { CommentData } from 'redux/slice/story/storySlice'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import {
   collection,
   deleteDoc,
@@ -12,9 +16,6 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore'
-import { CommentData } from 'redux/slice/story/storySlice'
-import { useSelector } from 'react-redux'
-import { RootState } from 'redux/store'
 
 type CommentWrapProps = {
   id: number
@@ -79,7 +80,7 @@ const CommentWrap: React.FC<CommentWrapProps> = ({ id }) => {
 
     try {
       const querySnapshot = await getDocs(q)
-      const comment: any = []
+      const comment = []
       querySnapshot.forEach(doc => {
         comment.push({ ...doc.data(), comment: newComment })
       })

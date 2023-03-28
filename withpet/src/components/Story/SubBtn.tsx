@@ -1,7 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { RootState } from 'redux/store'
 import { dbService } from 'firebase-config'
+import { CommentData } from 'redux/slice/story/storySlice'
+import { getDiary } from 'redux/slice/diary/diarySlice'
 import {
   collection,
   getDocs,
@@ -11,9 +14,6 @@ import {
   where,
   query,
 } from 'firebase/firestore'
-import { useNavigate } from 'react-router-dom'
-import { CommentData } from 'redux/slice/story/storySlice'
-import { getDiary } from 'redux/slice/diary/diarySlice'
 
 type SubBtnProps = {
   userUid: string
@@ -70,12 +70,11 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id, onDelete }) => {
     navigate('/story')
   }
 
-  const editDoc = async() =>{
-    const editInfo = await getDoc((doc(dbService,'diaryInfo',docId)))
+  const editDoc = async () => {
+    const editInfo = await getDoc(doc(dbService, 'diaryInfo', docId))
     dispatch(getDiary(editInfo.data()))
     navigate(`/diary/${docId}`)
   }
-
 
   return (
     <div className={'border border-x-0 border-b-0 flex justify-between px-1'}>
@@ -125,11 +124,7 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id, onDelete }) => {
           userUid === currentUserUid ? '' : 'hidden'
         } `}
       >
-        <button
-          className={'p-1'}
-          type={'button'}
-          onClick={editDoc}
-        >
+        <button className={'p-1'} type={'button'} onClick={editDoc}>
           수정
         </button>
         <button className={'p-1'} type={'button'} onClick={delDoc}>

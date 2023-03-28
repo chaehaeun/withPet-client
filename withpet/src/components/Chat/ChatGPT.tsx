@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { addMessage } from 'redux/slice/Chat/chatSlice'
 import spritesIcon from 'assets/sprites_icon.png'
+import axios from 'axios'
 
 interface APIResponse {
   choices: Array<{
@@ -51,7 +51,7 @@ const ChatGPT: React.FC = () => {
       dispatch(addMessage(newMessage))
       setInputValue('')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -63,12 +63,15 @@ const ChatGPT: React.FC = () => {
             <li
               key={index}
               className={`p-2 rounded-md ${
-                index % 2 === 0 ? 'bg-primary-100 text-gray-900' : 'bg-gray-100 text-gray-700'
+                index % 2 === 0
+                  ? 'bg-primary-100 text-gray-900'
+                  : 'bg-gray-100 text-gray-700'
               }`}
             >
               {message.content}
             </li>
-          ))}메시지
+          ))}
+          메시지
         </ul>
       </div>
       <form onSubmit={handleFormSubmit} className="flex-none p-4">

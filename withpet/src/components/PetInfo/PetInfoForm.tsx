@@ -5,6 +5,7 @@ import PetInfoInput from 'components/PetInfo/PetInfoInput'
 import PetInfoRadioBtn from 'components/PetInfo/PetInfoRadioBtn'
 import PetInfoRegister from 'components/PetInfo/PetInfoRegister'
 import PetInfoRadioGroup from 'components/PetInfo/PetInfoRadioGroup'
+import PetInfoModifyAndDelete from './PetInfoModifyAndDelete'
 
 import { RootState } from 'redux/store'
 import { useNavigate } from 'react-router-dom'
@@ -13,7 +14,6 @@ import { getPetInfo, resetPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 import { dbService, storageService } from 'firebase-config'
 import { setDoc, doc, collection } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
-import PetInfoModifyAndDelete from './PetInfoModifyAndDelete'
 
 const PetInfoForm: React.FC = () => {
   const navigate = useNavigate()

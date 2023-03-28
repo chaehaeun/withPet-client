@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
+
 import AttachedPicture from 'components/Diary/AttachedPicture'
 import WeatherChoose from 'components/Diary/WeatherChoose'
 import SelectedPet from 'components/Diary/SelectedPet'

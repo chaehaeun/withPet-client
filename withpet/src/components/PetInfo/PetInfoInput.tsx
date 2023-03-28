@@ -9,7 +9,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string
 }
 
-const PetInfoInput:React.FC<InputProps> = (props: InputProps) => {
+const PetInfoInput: React.FC<InputProps> = (props: InputProps) => {
   const { id, name, type, children, ...rest } = props
 
   return (

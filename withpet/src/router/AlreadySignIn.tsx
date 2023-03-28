@@ -1,7 +1,7 @@
-import Container from 'components/UI/Container'
-import LinkButton from 'components/UI/LinkButton'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import Container from 'components/UI/Container'
+import LinkButton from 'components/UI/LinkButton'
 
 const AlreadySignIn = () => {
   const navigate = useNavigate()

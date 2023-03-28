@@ -1,12 +1,13 @@
 import React, { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+
 import SignInHead from 'assets/Logo/signInLogo.webp'
 import Container from 'components/UI/Container'
 import SignInInput from 'components/SignIn/SignInInput'
 import LinkButton from 'components/UI/LinkButton'
 import SignInLink from 'components/SignIn/SignInLink'
 import SocialLogin from 'components/SignIn/SocialLogin'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 const SignIn = () => {
   const [idValue, setIdValue] = useState('')
@@ -26,7 +27,7 @@ const SignIn = () => {
     try {
       await signInWithEmailAndPassword(auth, idValue, pwValue)
       const user = auth.currentUser
-      console.log(user)
+      console.error(user)
       navigate('/story')
     } catch (error) {
       setIsChecked(true)
@@ -74,12 +75,6 @@ const SignIn = () => {
       <SocialLogin />
       <SignInLink to={'/signup'} text={'회원가입'} />
       <SignInLink to={'/'} text={'아이디/비밀번호 찾기'} />
-      {/* <CustomModal
-        message={'유효한 값을 입력해주세요.'}
-        left={'확인'}
-        right={'취소'}
-        ea={1}
-      /> */}
     </Container>
   )
 }

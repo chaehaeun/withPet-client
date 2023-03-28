@@ -1,11 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, dbService } from 'firebase-config'
 import { collection, addDoc } from 'firebase/firestore'
 import logoSignUp from 'assets/Logo/signUpLogo.webp'
 import Container from 'components/UI/Container'
 import SignUpInput from 'components/SignUp/SignUpInput'
-import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
   const [email, setEmail] = useState('')

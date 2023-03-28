@@ -17,7 +17,7 @@ const SocialIcon: React.FC<IconProps> = ({ method }) => {
         await signInWithPopup(auth, provider)
         navigate('/mypage')
       } catch (err) {
-        console.log(err)
+        console.error(err)
       }
     }
   }

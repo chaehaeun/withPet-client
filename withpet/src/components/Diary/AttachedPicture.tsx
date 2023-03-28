@@ -26,9 +26,7 @@ const AttachedPicture: React.FC<AttachedProps> = ({ setAlert }) => {
             const { result } = e.target as FileReader
             const data = result as string
             setImages(prev => [...prev, data])
-            dispatch(
-              addDiaryImg({ id: file.name, origin: data }),
-            )
+            dispatch(addDiaryImg({ id: file.name, origin: data }))
           }
           reader.readAsDataURL(file)
         }

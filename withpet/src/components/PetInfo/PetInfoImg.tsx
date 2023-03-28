@@ -10,38 +10,37 @@ const PetInfoImg: React.FC = () => {
   )
   const [attachment, setAttachment] = useState<string>('')
   const [image, setImage] = useState<boolean>(false)
-  const [fileChange, setFileChange] =  useState<boolean>(false)
+  const [fileChange, setFileChange] = useState<boolean>(false)
   const dispatch = useDispatch()
 
-  useEffect(()=>{
-    if(petInfoImg !== '' && !fileChange){
+  useEffect(() => {
+    if (petInfoImg !== '' && !fileChange) {
       setAttachment(petInfoImg)
       setImage(true)
       setFileChange(true)
-    }else if(petInfoImg ===''){
+    } else if (petInfoImg === '') {
       setFileChange(true)
     }
-  },[petInfoImg])
+  }, [petInfoImg])
 
-    const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const files = e.target.files
-      if (files) {
-        const theFile = files[0]
-        const reader = new FileReader()
-        reader.onload = async e => {
-          const { result } = e.target as FileReader
-          if (result) {
-            const data = result as string
-            setAttachment(data)
-            dispatch(getImgData(data))
-            dispatch(getPetImg(theFile.name))
-          }
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files) {
+      const theFile = files[0]
+      const reader = new FileReader()
+      reader.onload = async e => {
+        const { result } = e.target as FileReader
+        if (result) {
+          const data = result as string
+          setAttachment(data)
+          dispatch(getImgData(data))
+          dispatch(getPetImg(theFile.name))
         }
-        reader.readAsDataURL(theFile)
       }
-      setImage(true)
+      reader.readAsDataURL(theFile)
     }
-
+    setImage(true)
+  }
 
   return (
     <div onChange={onFileChange} className="relative">

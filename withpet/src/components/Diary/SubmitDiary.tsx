@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import logoSprite from 'assets/sprites_icon.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from 'redux/store'
 import { collection, addDoc, doc, updateDoc } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { storageService } from 'firebase-config'
 import { dbService } from 'firebase-config'
 import { resetDiary } from 'redux/slice/diary/diarySlice'
+import logoSprite from 'assets/sprites_icon.png'
 import moment from 'moment'
 import 'moment/locale/ko'
-import { storageService } from 'firebase-config'
-import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 
 const SubmitDiary: React.FC = () => {
   const { id } = useParams()

@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { updateDiaryImg } from 'redux/slice/diary/diarySlice'
+import { RootState } from 'redux/store'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { RootState } from 'redux/store'
-import { updateDiaryImg } from 'redux/slice/diary/diarySlice'
 
 type SwiperProps = {
   images: string[]

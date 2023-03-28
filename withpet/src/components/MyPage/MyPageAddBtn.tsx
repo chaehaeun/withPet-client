@@ -1,13 +1,15 @@
 import React from 'react'
-import 'components/App/App.css'
 import { useNavigate } from 'react-router-dom'
+import 'components/App/App.css'
 
 const MyPageAddBtn: React.FC = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="pb-1 w-full flex flex-col items-center 
-    after:block after:content-[''] after:h-1 after:border-b-2 after:border-black after:mt-6 after:w-11/12">
+    <div
+      className="pb-1 w-full flex flex-col items-center 
+    after:block after:content-[''] after:h-1 after:border-b-2 after:border-black after:mt-6 after:w-11/12"
+    >
       <button
         name="addButton"
         type="button"

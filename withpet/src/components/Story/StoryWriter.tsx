@@ -56,11 +56,10 @@ const StoryWriter: React.FC<StoryWriterProps> = ({
 
   const petInfoRef = collection(dbService, 'petInfo')
   useEffect(() => {
-    // 펫프로필 뽑아내는 로직
     const getUser = async () => {
       try {
         const petSnap = await getDocs(petInfoRef)
-        const petData = petSnap.docs.map((doc): any => doc.data())
+        const petData = petSnap.docs.map(doc => doc.data())
         const petResult = petData.filter(
           item => item.user === userUid && item.petName === pet,
         )
@@ -70,7 +69,6 @@ const StoryWriter: React.FC<StoryWriterProps> = ({
       }
     }
 
-    //작성일 기준으로 날짜 구하는 로직
     const makeDate = (date: string) => {
       const dateArr = date.split('-')
       const month = parseInt(dateArr[1]) - 1
