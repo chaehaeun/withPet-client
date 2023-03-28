@@ -61,7 +61,6 @@ const Chatting = () => {
         return data.json()
       })
       .then(data => {
-        console.log(data)
         setMessages([
           ...chatMessages,
           {
@@ -90,11 +89,12 @@ const Chatting = () => {
   return (
     <>
       <Header title={'Chatting'} />
-      <div className="mx-auto max-w-scr min-h-screen w-full bg-gray-100 fixed left-1/2 -translate-x-1/2 top-14 font-sans ">
-        <MainContainer>
+      <div className="mx-auto max-w-scr min-h-screen bg-gray-100 relative top-16 font-sans">
+        <MainContainer style={{ border: 'none' }}>
           <ChatContainer>
             <MessageList
-              style={{ height: '748px' }}
+              style={{ position: 'relative', height: '750px' }}
+              className="w-full relative z-50"
               scrollBehavior="smooth"
               typingIndicator={
                 isTyping ? (
@@ -106,10 +106,15 @@ const Chatting = () => {
                 return <Message key={i} model={message} />
               })}
             </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />
+            <MessageInput
+              className="mx-auto max-w-scr w-full fixed bottom-0 left-0 right-0 z-50"
+              placeholder="Type message here"
+              onSend={handleSend}
+            />
           </ChatContainer>
         </MainContainer>
       </div>
+      <ChatContainer></ChatContainer>
       <Navigation title={'chatting'} />
     </>
   )
