@@ -16,7 +16,7 @@ export interface StoryState {
     visibility: boolean
   }
   storyData: DiaryData[] | DocumentData | null
-  status: 'idle' | 'loading' | 'succeeded' | 'failed' // 상태 추가
+  status: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: string | null | undefined
   commentData: CommentData[] | null
 }

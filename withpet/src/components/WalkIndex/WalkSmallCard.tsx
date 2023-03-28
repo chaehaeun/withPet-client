@@ -1,4 +1,3 @@
-import spritesIcon from 'assets/sprites_icon.png'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -8,6 +7,7 @@ import {
   updateRain,
   updateAir,
 } from 'redux/slice/walkIndex/walkIndexSlice'
+import spritesIcon from 'assets/sprites_icon.png'
 import { PropagateLoader } from 'react-spinners'
 
 interface walkProps {

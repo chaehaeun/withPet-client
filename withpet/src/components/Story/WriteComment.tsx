@@ -1,9 +1,9 @@
-import { collection, addDoc, getDocs } from 'firebase/firestore'
 import React, { useEffect, useRef, useState } from 'react'
-import { dbService } from 'firebase-config'
-import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { CommentData } from 'redux/slice/story/storySlice'
+import { dbService } from 'firebase-config'
+import { collection, addDoc, getDocs } from 'firebase/firestore'
 
 type WriteCommentProps = {
   id: number
@@ -26,7 +26,7 @@ const WriteComment: React.FC<WriteCommentProps> = ({ id, getNewComment }) => {
     const getUser = async () => {
       try {
         const petSnap = await getDocs(petInfoRef)
-        const petData = petSnap.docs.map((doc): any => doc.data())
+        const petData = petSnap.docs.map(doc => doc.data())
         const petResult = petData.filter(item => item.user === userUid)
         setUserImg(petResult[0].petImg)
         setUserName(petResult[0].petName)

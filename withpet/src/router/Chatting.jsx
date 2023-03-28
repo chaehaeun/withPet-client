@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import Header from 'components/Header/Header'
 import Navigation from 'components/Navigation/Navigation'
-// import ChatGPT from 'components/Chat/ChatGPT'
-// import ChatGpts from 'components/Chat/ChatGpts'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 import {
   MainContainer,

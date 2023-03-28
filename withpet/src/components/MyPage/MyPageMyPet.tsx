@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import 'components/App/App.css'
-import MyPetInfo from './MyPetInfo'
-import MyPageEditBtn from './MyPageEditBtn'
-import { RootState } from 'redux/store'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper'
 import { useSelector } from 'react-redux'
 import { dbService } from 'firebase-config'
+import { RootState } from 'redux/store'
 import {
   collection,
   DocumentData,
@@ -12,11 +14,8 @@ import {
   query,
   where,
 } from 'firebase/firestore'
-
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper'
-import 'swiper/css'
-import 'swiper/css/navigation'
+import MyPetInfo from './MyPetInfo'
+import MyPageEditBtn from './MyPageEditBtn'
 
 const MyPageMyPet: React.FC = () => {
   const userUid = useSelector((state: RootState) => state.auth.userUid)

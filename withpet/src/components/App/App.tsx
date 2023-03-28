@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { auth } from 'firebase-config'
+import { onAuthStateChanged } from 'firebase/auth'
+import { useDispatch } from 'react-redux'
+import { authAction } from 'redux/slice/user/auth-slice'
+import { collection, getDocs, query, where } from 'firebase/firestore'
+import { dbService } from 'firebase-config'
 import 'components/App/App.css'
 import Diary from 'router/Diary'
 import PetInfo from 'router/PetInfo'
@@ -12,22 +18,30 @@ import WalkIndex from 'router/WalkIndex'
 import Chatting from 'router/Chatting'
 import Setting from 'router/Setting'
 import AlreadySignIn from 'router/AlreadySignIn'
-import { auth } from 'firebase-config'
-import { onAuthStateChanged } from 'firebase/auth'
-import { useDispatch } from 'react-redux'
-import { authAction } from 'redux/slice/user/auth-slice'
 import DiaryComments from 'router/DiaryComments'
 import DiaryEdit from 'router/DiaryEdit'
 
 function App() {
   const dispatch = useDispatch()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [existedPet, setExistedPet] = useState(false)
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
       if (user) {
         setIsLoggedIn(true)
         dispatch(authAction.getUserUid(user.uid))
+
+        const getMyPet = async () => {
+          const q = query(
+            collection(dbService, 'petInfo'),
+            where('user', '==', user.uid),
+          )
+          const myPetList = await getDocs(q)
+          const myFirstPet = myPetList.docs.map(doc => doc.data())
+          setExistedPet(myFirstPet[0] ? true : false)
+        }
+        getMyPet()
       } else {
         setIsLoggedIn(false)
       }
@@ -47,7 +61,9 @@ function App() {
         />
         <Route
           path="/signup"
-          element={isLoggedIn ? <AlreadySignIn /> : <SignUp />}
+          element={
+            existedPet ? <AlreadySignIn /> : isLoggedIn ? '' : <SignUp />
+          }
         />
         <Route path="/petinfo" element={isLoggedIn && <PetInfo />} />
         <Route path="/story" element={isLoggedIn && <Story />} />

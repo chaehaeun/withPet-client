@@ -1,9 +1,9 @@
-import spritesIcon from 'assets/sprites_icon.png'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { PropagateLoader } from 'react-spinners'
 import { getWalkLoading } from 'redux/slice/walkIndex/walkIndexSlice'
+import spritesIcon from 'assets/sprites_icon.png'
 interface walkProps {
   lat: string
   lng: string

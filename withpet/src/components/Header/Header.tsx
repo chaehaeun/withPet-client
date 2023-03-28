@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
+import SubmitDiary from 'components/Diary/SubmitDiary'
 import logoHeader from 'assets/Logo/headerLogo.webp'
 import logoSprite from 'assets/sprites_icon.png'
-import SubmitDiary from 'components/Diary/SubmitDiary'
-import { useNavigate } from 'react-router-dom'
 
 type HeaderProps = {
   title?: string

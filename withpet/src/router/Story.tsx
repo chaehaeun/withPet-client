@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import Container from 'components/UI/Container'
-import StoryCard from 'components/Story/StoryCard'
-import Header from 'components/Header/Header'
-import { auth, dbService } from 'firebase-config'
-import Navigation from 'components/Navigation/Navigation'
+import { dbService } from 'firebase-config'
 import { collection, getDocs } from 'firebase/firestore'
-import StoryTap from 'components/Story/StoryTap'
 import { RootState } from 'redux/store'
 import { DocumentData } from 'firebase/firestore'
+import Container from 'components/UI/Container'
+import Header from 'components/Header/Header'
+import Navigation from 'components/Navigation/Navigation'
+import StoryCard from 'components/Story/StoryCard'
+import StoryTap from 'components/Story/StoryTap'
 
 export interface DiaryData {
   check: number

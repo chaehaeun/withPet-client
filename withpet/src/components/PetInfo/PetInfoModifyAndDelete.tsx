@@ -1,21 +1,24 @@
 import React from 'react'
 import 'components/App/App.css'
+import LongButton from 'components/UI/LongButton'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { RootState } from 'redux/store'
+import { resetPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 import { deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { dbService, storageService } from 'firebase-config'
-import { useNavigate } from 'react-router-dom'
-import LongButton from 'components/UI/LongButton'
-import { resetPetInfo } from 'redux/slice/petInfo/petInfoSlice'
-import { deleteObject, getDownloadURL, ref, uploadString } from 'firebase/storage'
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadString,
+} from 'firebase/storage'
 
 const PetInfoModifyAndDelete: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const userUid = useSelector((state: RootState) => state.auth.userUid)
-  const petInfo = useSelector(
-    (state: RootState) => state.petInfo.petInfoGroup,
-  )
+  const petInfo = useSelector((state: RootState) => state.petInfo.petInfoGroup)
   const petInfoId = useSelector((state: RootState) => state.petInfo.petInfoId)
   const imgData = useSelector((state: RootState) => state.petInfo.imgData)
   const onModifyClick = async () => {
@@ -27,7 +30,9 @@ const PetInfoModifyAndDelete: React.FC = () => {
       dispatch(resetPetInfo())
       navigate('/mypage')
     } else {
-      await deleteObject(ref(storageService, `petImg/${userUid}/${petInfo.petImgName}`))
+      await deleteObject(
+        ref(storageService, `petImg/${userUid}/${petInfo.petImgName}`),
+      )
       const imgRef = ref(storageService, `petImg/${userUid}/${petInfo.petImg}`)
       const response = await uploadString(imgRef, imgData, 'data_url')
       const imgUrl = await getDownloadURL(response.ref)
@@ -53,7 +58,9 @@ const PetInfoModifyAndDelete: React.FC = () => {
 
   const onDeleteClick = async () => {
     await deleteDoc(doc(dbService, 'petInfo', petInfoId))
-    await deleteObject(ref(storageService, `petImg/${userUid}/${petInfo.petImgName}`))
+    await deleteObject(
+      ref(storageService, `petImg/${userUid}/${petInfo.petImgName}`),
+    )
     dispatch(resetPetInfo())
     navigate('/mypage')
   }
