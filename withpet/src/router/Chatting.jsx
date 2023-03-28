@@ -99,12 +99,12 @@ const Chatting = () => {
               return <Message key={i} model={message} />
             })}
           </MessageList>
+          <MessageInput
+            className="mx-auto max-w-scr w-full z-50"
+            placeholder="Type message here"
+            onSend={handleSend}
+          />
         </ChatContainer>
-        <MessageInput
-          className="mx-auto max-w-scr w-full z-50 fixed bottom-0"
-          placeholder="Type message here"
-          onSend={handleSend}
-        />
       </Container>
       <Navigation title={'chatting'} />
     </>
