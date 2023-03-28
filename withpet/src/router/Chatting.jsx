@@ -4,7 +4,6 @@ import Container from 'components/UI/Container'
 import Navigation from 'components/Navigation/Navigation'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 import {
-  MainContainer,
   ChatContainer,
   MessageList,
   Message,
