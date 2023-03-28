@@ -20,6 +20,9 @@ const WalkIndex = () => {
     coordinates: { lat: 0, lng: 0 },
   })
   const walk = useSelector((walkState: RootState) => walkState.walk.walkGroup)
+  const loading = useSelector(
+    (walkState: RootState) => walkState.walk.walkLoading,
+  )
 
   const onSuccess = (location: {
     coords: { latitude: number; longitude: number }
@@ -53,7 +56,9 @@ const WalkIndex = () => {
     <>
       <Header title={'WalkIndex'} />
       <Container
-        style={`${walk.color} pt-16 flex flex-col items-center justify-center`}
+        style={`${
+          loading ? 'bg-primary-100' : walk.color
+        } pt-16 flex flex-col items-center justify-center`}
       >
         {location.coordinates?.lat !== 0 && (
           <WalkLocation
@@ -63,7 +68,9 @@ const WalkIndex = () => {
         )}
         {location.coordinates?.lat !== 0 && <WalkAirQuality />}
         {location.coordinates?.lat !== 0 && (
-          <h2 className="text-white text-[40px] font-bold">{walk.desc}</h2>
+          <h2 className="text-white text-[40px] font-bold">
+            {loading ? '' : walk.desc}
+          </h2>
         )}
         {location.coordinates?.lat !== 0 && (
           <WalkSmallCard

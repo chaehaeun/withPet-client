@@ -30,6 +30,10 @@ const SelectedPet: React.FC = () => {
       setMyPets(myPetList.docs.map(doc => doc.data()))
     }
     getMyPet()
+
+    if (diary.pet !== '') {
+      setBtnActive(diary.pet)
+    }
   }, [])
 
   const onFocusPet = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

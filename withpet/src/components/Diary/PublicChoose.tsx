@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
+import { useParams } from 'react-router-dom'
 
 const PublicChoose: React.FC = () => {
+  const { id } = useParams()
   const dispatch = useDispatch()
   const [check, setCheck] = useState<number>(0)
   const diary = useSelector(
@@ -11,8 +13,10 @@ const PublicChoose: React.FC = () => {
   )
 
   useEffect(() => {
-    dispatch(getDiary({ ...diary, check }))
-  }, [check])
+    if (id) {
+      setCheck(diary.check)
+    }
+  }, [])
 
   return (
     <div className="shrink-0">
@@ -29,7 +33,10 @@ const PublicChoose: React.FC = () => {
           type="radio"
           id="public-btn"
           checked={check === 0}
-          onChange={() => setCheck(0)}
+          onChange={() => {
+            setCheck(0)
+            dispatch(getDiary({ ...diary, check: 0 }))
+          }}
         />
         <span className="relative inline-block pl-8 text-xs">공개</span>
       </label>
@@ -46,7 +53,10 @@ const PublicChoose: React.FC = () => {
           type="radio"
           id="private-btn"
           checked={check === 1}
-          onChange={() => setCheck(1)}
+          onChange={() => {
+            setCheck(1)
+            dispatch(getDiary({ ...diary, check: 1 }))
+          }}
         />
         <span className="relative inline-block pl-8 text-xs">비공개</span>
       </label>

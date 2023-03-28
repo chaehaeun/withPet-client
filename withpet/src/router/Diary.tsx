@@ -14,17 +14,28 @@ import Navigation from 'components/Navigation/Navigation'
 
 const Diary: React.FC = () => {
   const dispatch = useDispatch()
-  const [title, setTitle] = useState<string>('')
-  const [text, setText] = useState<string>('')
   const [textCount, setTextCount] = useState<number>(0)
   const [alert, setAlert] = useState<boolean>(false)
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
 
-  useEffect(() => {
-    dispatch(getDiary({ ...diary, title, text }))
-  }, [title, text])
+  const onChange = async (e: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { name, value },
+    } = e
+    if (name === 'text') {
+      setTextCount(value.length)
+    }
+    dispatch(getDiary({ ...diary, [name]: value }))
+  }
+  const onChangeText = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const {
+      target: { name, value },
+    } = e
+    setTextCount(value.length)
+    dispatch(getDiary({ ...diary, [name]: value }))
+  }
 
   return (
     <>
@@ -48,10 +59,9 @@ const Diary: React.FC = () => {
             placeholder="제목"
             maxLength={21}
             required
-            value={title}
-            onChange={e => {
-              setTitle(e.target.value)
-            }}
+            name="title"
+            value={diary.title}
+            onChange={onChange}
           />
         </h2>
         <DateChoose />
@@ -60,17 +70,14 @@ const Diary: React.FC = () => {
         <div className="w-full relative shrink-0">
           <textarea
             className="w-full p-4 text-justify resize-none bg-Gray-100"
-            name="description"
             aria-label="일기 내용 입력칸"
             cols={30}
             rows={10}
             placeholder="내용을 입력해주세요."
-            value={text}
             maxLength={300}
-            onChange={e => {
-              setTextCount(e.target.value.length)
-              setText(e.target.value)
-            }}
+            name="text"
+            value={diary.text}
+            onChange={onChangeText}
           ></textarea>
           <p
             className="absolute right-2 bottom-3 text-Gray-300"
