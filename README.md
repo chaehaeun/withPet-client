@@ -150,9 +150,10 @@ $ firebase deploy
 
 3. Story
 
-   | Story | 댓글 |
-   | ---------------- | ---------------- |
-   | ![메인](./assets/story.gif) | ![댓글](./assets/comment.gif) |
+
+| Story            | 댓글              |
+| ---------------- | ---------------- |
+| ![메인](./assets/story.gif) | ![댓글](./assets/comment.gif) |
 
 - firestore에서 story 정보 불러와 렌더링하는 기능을 구현했습니다.
 - 데이터를 카드 컴포넌트에 보여주는 기능을 구현했습니다.
