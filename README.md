@@ -149,6 +149,7 @@ $ firebase deploy
 - 유효성 검사 통과 시에만 로그인 버튼이 활성화 되도록 구현했습니다.
 
 3. Story
+
    | Story | 댓글 |
    | ---------------- | ---------------- |
    | ![메인](./assets/story.gif) | ![댓글](./assets/comment.gif) |
