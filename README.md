@@ -6,6 +6,7 @@
 
 - 주제 : 반려동물의 하루 일기를 작성할 수 있는 sns 서비스
 - 프로젝트 작업 기간 : ![project_start](https://img.shields.io/badge/Project%20start-2023--03--09-green) ![project_end](https://img.shields.io/badge/Project%20end-2023--03--28-orange)
+- 프로젝트 인원 : 5명
 - 주요 기능 :
   1. Firebase Authentication을 활용한 로그인, 회원가입, 소셜로그인(구글), 회원탈퇴 기능
   2. 프로필 등록, 수정 기능
@@ -16,34 +17,6 @@
   7. 다이어리 히스토리를 관리할 수 있는 마이페이지 기능
 
 > 🚩 URL : https://withpet-230313.web.app/
-
-<br/>
-
-## 🧑 Contributors : LAB9
-
-<table align="left">
-  <tr>
-    <th>백승연</th>
-    <th>김성은</th>
-    <th>박재석</th>
-    <th>이원준</th>
-    <th>채하은</th>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/qorbaxk">@qorbaxk</a></td>
-    <td align="center"><a href="https://github.com/sungeunnn">@sungeunnn</a></td>
-    <td align="center"><a href="https://github.com/jaesukpark77">@jaesukpark77</a></td>
-    <td align="center"><a href="https://github.com/copiCat0">@copiCat0</a></td>
-    <td align="center"><a href="https://github.com/chaehaeun">@chaehaeun</a></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="https://github.com/qorbaxk.png" width="100"></td>
-    <td align="center"><img src="https://github.com/sungeunnn.png" width="100"></td>
-    <td align="center"><img src="https://github.com/jaesukpark77.png" width="100"></td>
-    <td align="center"><img src="https://github.com/copiCat0.png" width="100"></td>
-    <td align="center"><img src="https://github.com/chaehaeun.png" width="100"></td>
-  </tr>
-</table>
 
 <br/>
 
@@ -186,3 +159,31 @@ $ firebase deploy
 - 본문의 내용이 길 경우 더보기 버튼을 눌러 전체 내용을 볼 수 있도록 구현했습니다.
 - uid 정보를 이용하여 현재 로그인 되어있는 유저의 uid와 일치할 시 수정 / 삭제 버튼이 보이도록 했습니다.
 - 댓글을 누르면 스토리 상세 페이지로 이동하고, 댓글 CRUD가 가능합니다.
+
+## 🧑 Contributors : LAB9
+
+<table align="left">
+  <tr>
+    <th>백승연</th>
+    <th>김성은</th>
+    <th>박재석</th>
+    <th>이원준</th>
+    <th>채하은</th>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/qorbaxk">@qorbaxk</a></td>
+    <td align="center"><a href="https://github.com/sungeunnn">@sungeunnn</a></td>
+    <td align="center"><a href="https://github.com/jaesukpark77">@jaesukpark77</a></td>
+    <td align="center"><a href="https://github.com/copiCat0">@copiCat0</a></td>
+    <td align="center"><a href="https://github.com/chaehaeun">@chaehaeun</a></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://github.com/qorbaxk.png" width="100"></td>
+    <td align="center"><img src="https://github.com/sungeunnn.png" width="100"></td>
+    <td align="center"><img src="https://github.com/jaesukpark77.png" width="100"></td>
+    <td align="center"><img src="https://github.com/copiCat0.png" width="100"></td>
+    <td align="center"><img src="https://github.com/chaehaeun.png" width="100"></td>
+  </tr>
+</table>
+
+<br/>
